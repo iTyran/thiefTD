@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="50" height="30" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tile" tilewidth="32" tileheight="32">
+  <image source="tile.png" width="96" height="96"/>
+ </tileset>
+ <layer name="bg" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztljkKADEMA/c+/v/hdZMyBEJG0YIHBCmCGw/Cy5Ik3qyRLbJDbxVH5Ixc0FvFHXkiL/RWQTgw2yvnmS0IB9KrftIr7cwW6ZV2Zgsnr9xuod6ZbrdQ70y3W2iEVw6M8MqBEV45oPKK7jSVV3SnqbyiO22GVw7/C/Te/+CVw/9CbY9E/5A3W22PRP+QN1ttj0T/jOy3Dz1TB5A=
+  </data>
+ </layer>
+ <objectgroup name="obj" width="50" height="30">
+     <object name="0" x="171" y="949"/>
+     <object name="1" x="174" y="532"/>
+     <object name="2" x="659" y="531"/>
+     <object name="3" x="655" y="142"/>
+     <object name="4" x="1328" y="146"/>
+     <object name="5" x="1331" y="919"/>
+     <object name="6" x="942" y="917"/>
+     <object name="7" x="944" y="720"/>
+     <object name="8" x="558" y="725"/>
+     <object name="9" x="559" y="919"/>
+     <object name="10" x="325" y="914"/>
+ </objectgroup>
+</map>
