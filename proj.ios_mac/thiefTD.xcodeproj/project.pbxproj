@@ -63,11 +63,10 @@
 		D6B0611B1803AB670077942B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B0611A1803AB670077942B /* CoreMotion.framework */; };
 		FA45D25C18F7C953004655EB /* PlayLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA45D25A18F7C953004655EB /* PlayLayer.cpp */; };
 		FA45D26518F7E504004655EB /* Enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA45D26318F7E504004655EB /* Enemy.cpp */; };
-		FAAA90A518FCC5EB0035CFB8 /* GameManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAAA90A318FCC5EB0035CFB8 /* GameManager.cpp */; };
-		FAAA90AE18FCD6AC0035CFB8 /* map.tmx in Resources */ = {isa = PBXBuildFile; fileRef = FAAA90AA18FCD6AC0035CFB8 /* map.tmx */; };
-		FAAA90AF18FCD6AC0035CFB8 /* Sprite.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAAA90AB18FCD6AC0035CFB8 /* Sprite.plist */; };
-		FAAA90B018FCD6AC0035CFB8 /* Sprite.png in Resources */ = {isa = PBXBuildFile; fileRef = FAAA90AC18FCD6AC0035CFB8 /* Sprite.png */; };
-		FAAA90B118FCD6AC0035CFB8 /* tile.png in Resources */ = {isa = PBXBuildFile; fileRef = FAAA90AD18FCD6AC0035CFB8 /* tile.png */; };
+		FAAB8AC018FE16F70073AF0F /* map.tmx in Resources */ = {isa = PBXBuildFile; fileRef = FAAB8ABB18FE16F70073AF0F /* map.tmx */; };
+		FAAB8AC218FE16F70073AF0F /* Sprite.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAAB8ABD18FE16F70073AF0F /* Sprite.plist */; };
+		FAAB8AC318FE16F70073AF0F /* Sprite.png in Resources */ = {isa = PBXBuildFile; fileRef = FAAB8ABE18FE16F70073AF0F /* Sprite.png */; };
+		FAAB8AC418FE16F70073AF0F /* tile.png in Resources */ = {isa = PBXBuildFile; fileRef = FAAB8ABF18FE16F70073AF0F /* tile.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -265,12 +264,10 @@
 		FA45D25B18F7C953004655EB /* PlayLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayLayer.h; sourceTree = "<group>"; };
 		FA45D26318F7E504004655EB /* Enemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Enemy.cpp; sourceTree = "<group>"; };
 		FA45D26418F7E504004655EB /* Enemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enemy.h; sourceTree = "<group>"; };
-		FAAA90A318FCC5EB0035CFB8 /* GameManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameManager.cpp; path = ../Classes/GameManager.cpp; sourceTree = "<group>"; };
-		FAAA90A418FCC5EB0035CFB8 /* GameManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameManager.h; path = ../Classes/GameManager.h; sourceTree = "<group>"; };
-		FAAA90AA18FCD6AC0035CFB8 /* map.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = map.tmx; sourceTree = "<group>"; };
-		FAAA90AB18FCD6AC0035CFB8 /* Sprite.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Sprite.plist; sourceTree = "<group>"; };
-		FAAA90AC18FCD6AC0035CFB8 /* Sprite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite.png; sourceTree = "<group>"; };
-		FAAA90AD18FCD6AC0035CFB8 /* tile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tile.png; sourceTree = "<group>"; };
+		FAAB8ABB18FE16F70073AF0F /* map.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = map.tmx; sourceTree = "<group>"; };
+		FAAB8ABD18FE16F70073AF0F /* Sprite.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Sprite.plist; sourceTree = "<group>"; };
+		FAAB8ABE18FE16F70073AF0F /* Sprite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite.png; sourceTree = "<group>"; };
+		FAAB8ABF18FE16F70073AF0F /* tile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tile.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -346,8 +343,6 @@
 				FA45D25B18F7C953004655EB /* PlayLayer.h */,
 				FA45D26318F7E504004655EB /* Enemy.cpp */,
 				FA45D26418F7E504004655EB /* Enemy.h */,
-				FAAA90A318FCC5EB0035CFB8 /* GameManager.cpp */,
-				FAAA90A418FCC5EB0035CFB8 /* GameManager.h */,
 			);
 			name = Classes;
 			path = ../classes;
@@ -388,7 +383,7 @@
 				080E96DDFE201D6D7F000001 /* ios */,
 				503AE10617EB990700D1A890 /* mac */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				FAAA90A818FCD6AC0035CFB8 /* Resources */,
+				FAAB8AB918FE16F70073AF0F /* Resources */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -460,24 +455,24 @@
 			path = ios;
 			sourceTree = SOURCE_ROOT;
 		};
-		FAAA90A818FCD6AC0035CFB8 /* Resources */ = {
+		FAAB8AB918FE16F70073AF0F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				FAAA90A918FCD6AC0035CFB8 /* width_640 */,
+				FAAB8ABA18FE16F70073AF0F /* height_960 */,
 			);
 			name = Resources;
 			path = ../Resources;
 			sourceTree = "<group>";
 		};
-		FAAA90A918FCD6AC0035CFB8 /* width_640 */ = {
+		FAAB8ABA18FE16F70073AF0F /* height_960 */ = {
 			isa = PBXGroup;
 			children = (
-				FAAA90AA18FCD6AC0035CFB8 /* map.tmx */,
-				FAAA90AB18FCD6AC0035CFB8 /* Sprite.plist */,
-				FAAA90AC18FCD6AC0035CFB8 /* Sprite.png */,
-				FAAA90AD18FCD6AC0035CFB8 /* tile.png */,
+				FAAB8ABB18FE16F70073AF0F /* map.tmx */,
+				FAAB8ABD18FE16F70073AF0F /* Sprite.plist */,
+				FAAB8ABE18FE16F70073AF0F /* Sprite.png */,
+				FAAB8ABF18FE16F70073AF0F /* tile.png */,
 			);
-			path = width_640;
+			path = height_960;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -645,24 +640,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				5087E78117EB970100C73F5D /* Icon-120.png in Resources */,
-				FAAA90B118FCD6AC0035CFB8 /* tile.png in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
+				FAAB8AC418FE16F70073AF0F /* tile.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
-				FAAA90AF18FCD6AC0035CFB8 /* Sprite.plist in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
-				FAAA90B018FCD6AC0035CFB8 /* Sprite.png in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
+				FAAB8AC018FE16F70073AF0F /* map.tmx in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
-				FAAA90AE18FCD6AC0035CFB8 /* map.tmx in Resources */,
+				FAAB8AC218FE16F70073AF0F /* Sprite.plist in Resources */,
+				FAAB8AC318FE16F70073AF0F /* Sprite.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -686,7 +681,6 @@
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				FA45D26518F7E504004655EB /* Enemy.cpp in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
-				FAAA90A518FCC5EB0035CFB8 /* GameManager.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				FA45D25C18F7C953004655EB /* PlayLayer.cpp in Sources */,
 			);

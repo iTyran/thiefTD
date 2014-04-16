@@ -11,7 +11,6 @@
 
 #include <iostream>
 #include "cocos2d.h"
-#include "GameManager.h"
 
 USING_NS_CC;
 class PlayLayer : public Layer
@@ -21,23 +20,18 @@ public:
     ~PlayLayer();
     
     virtual bool init() override;
-    
     static Scene* createScene();
     CREATE_FUNC(PlayLayer);
-    
-    virtual void update(float dt) override;
 
 private:
     SpriteBatchNode *spriteSheet;
-    
     TMXTiledMap* map;
     TMXObjectGroup* objects;
-    GameManager* instance;
+    Vector<Node*> pointsVector;
     
     void initPointsVector();
     void runFllowPoint(Node* node);
     void addEnemy();
-    
 };
 
 #endif /* defined(__thiefTD__PlayLayer__) */

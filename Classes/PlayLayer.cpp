@@ -39,21 +39,13 @@ bool PlayLayer::init()
     map = TMXTiledMap::create("map.tmx");
 	objects = map->getObjectGroup("obj");
     this->addChild(map, -1);
-	
-    instance = GameManager::getInstance();
     
     initPointsVector();
     addEnemy();
-    
-    //schedule(schedule_selector(EnemyBase::changeDirection), 1.0f);
-    
+  
     return true;
 }
 
-void PlayLayer::update(float dt)
-{
-    
-}
 void PlayLayer::initPointsVector()
 {
     Node *runOfPoint = NULL;
@@ -66,7 +58,7 @@ void PlayLayer::initPointsVector()
 		float y = point.at("y").asFloat();
 		runOfPoint = Node::create();
 		runOfPoint->setPosition(Point(x, y));
-		instance->pointsVector.pushBack(runOfPoint);
+		this->pointsVector.pushBack(runOfPoint);
 		count++;
 		point = objects->getObject( std::to_string(count));
 	}
@@ -78,21 +70,22 @@ void PlayLayer::runFllowPoint(Node* node)
     EnemyBase *enemy = (EnemyBase *)node;
     auto point = enemy->nextPoint();
     
-    enemy->runAction(CCSequence::create(MoveTo::create(enemy->runSpeed, point->getPosition())
+    enemy->runAction(CCSequence::create(MoveTo::create(enemy->getRunSpeed(), point->getPosition())
                                         , CallFuncN::create(CC_CALLBACK_1(PlayLayer::runFllowPoint, this))
                                         , NULL));
 }
 
 void PlayLayer::addEnemy()
 {
-    EnemyBase* enemy = EnemyFast::createEnemy();
+    EnemyBase* enemy = Thief::create();
+    enemy->setPointsVector(pointsVector);
 	this->addChild(enemy);
     
     Node* point = enemy->currPoint();
     enemy->setPosition(point->getPosition());
     point = enemy->nextPoint();
     
-    enemy->runAction(CCSequence::create(MoveTo::create(enemy->runSpeed, point->getPosition())
+    enemy->runAction(CCSequence::create(MoveTo::create(enemy->getRunSpeed(), point->getPosition())
                                         , CallFuncN::create(CC_CALLBACK_1(PlayLayer::runFllowPoint, this))
                                         , NULL));
 }

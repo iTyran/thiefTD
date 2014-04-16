@@ -14,45 +14,44 @@
 #include "cocos2d.h"
 #include "PlayLayer.h"
 
-#include "GameManager.h"
 
 USING_NS_CC;
 class EnemyBase : public Sprite
 {
 public:
-    EnemyBase();
-    ~EnemyBase();
     
-    virtual bool init();
+    virtual bool init() override;
     CREATE_FUNC(EnemyBase);
     
-    static Animation* createAnimation(std::string prefixName, int framesNum, float delay);
     Node* currPoint();
     Node* nextPoint();
+    Animation* createAnimation(std::string prefixName, int framesNum, float delay);
     void changeDirection(float dt);
+    void setPointsVector(Vector<Node*> points);
+    
+private:
+    Vector<Node*> pointsVector;
+    
 
-    float runSpeed;
-    int maxHp;
-    int currHp;
+protected:
     int pointCount;
     Animation *animationRight;
     Animation *animationLeft;
-
-    bool left;
-    GameManager* instance;
+    CC_SYNTHESIZE(float, runSpeed, RunSpeed);
+    CC_SYNTHESIZE(int, maxHp, MaxHp);
+    CC_SYNTHESIZE(int, currHp, CurrHp);
+    
 };
 
-class EnemyFast : public EnemyBase
+class Thief : public EnemyBase
 {
 public:
-    static EnemyBase* createEnemy();
-};
-
-class EnemySlow : public EnemyBase
-{
-public:
-    static EnemyBase* createEnemy();
+    virtual bool init() override;
+    CREATE_FUNC(Thief);
+    
 };
 
 
-#endif /* defined(__thiefTD__Enemy__) */;
+
+
+#endif /* defined(__thiefTD__Enemy__) *///;

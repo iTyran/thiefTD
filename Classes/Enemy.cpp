@@ -9,12 +9,6 @@
 #include "Enemy.h"
 #include "CCVector.h"
 
-EnemyBase::EnemyBase():
-runSpeed(0)
-{
-}
-
-EnemyBase::~EnemyBase(){ }
 
 bool EnemyBase::init()
 {
@@ -22,9 +16,6 @@ bool EnemyBase::init()
 	{
 		return false;
 	}
-    
-    schedule(schedule_selector(EnemyBase::changeDirection), 0.4f);
-    
 	return true;
 }
 
@@ -45,18 +36,17 @@ Animation* EnemyBase::createAnimation(std::string prefixName, int framesNum, flo
 
 Node* EnemyBase::currPoint()
 {
-    return instance->pointsVector.at(pointCount);
+    return this->pointsVector.at(pointCount);
 }
 
 Node* EnemyBase::nextPoint()
 {
-    
-    int maxCount = instance->pointsVector.size();
+    int maxCount = this->pointsVector.size();
 	pointCount++;
 	if (pointCount > maxCount-1){
 		pointCount = 0;
     }
-    auto node =instance->pointsVector.at(pointCount);
+    auto node =this->pointsVector.at(pointCount);
     return node;
 }
 
@@ -74,24 +64,31 @@ void EnemyBase::changeDirection(float dt)
     }
 }
 
-
-//--------------EnemyFast------------------
-
-EnemyBase* EnemyFast::createEnemy()
+void EnemyBase::setPointsVector(Vector<Node*> points)
 {
-    auto enemyFast = EnemyBase::create();
-    
-    enemyFast->pointCount = 0;
-    enemyFast->runSpeed = 6;
-    enemyFast->instance = GameManager::getInstance();
-    
-	enemyFast->animationRight = createAnimation("enemyRight1", 4, 0.1f);
-	AnimationCache::getInstance()->addAnimation(enemyFast->animationRight, "runright");
-    enemyFast->animationLeft = createAnimation("enemyLeft1", 4, 0.1f);
-	AnimationCache::getInstance()->addAnimation(enemyFast->animationLeft, "runleft");
-
-	enemyFast->runAction(Animate::create(enemyFast->animationRight) );
-
-    return enemyFast;
+    this->pointsVector = points;
 }
+
+//--------------Thief------------------
+
+bool Thief::init()
+{
+	if (!Sprite::init())
+	{
+		return false;
+	}
+    pointCount = 0;
+    setRunSpeed(6);
+    
+    animationRight = createAnimation("enemyRight1", 4, 0.1f);
+	AnimationCache::getInstance()->addAnimation(animationRight, "runright");
+    animationLeft = createAnimation("enemyLeft1", 4, 0.1f);
+	AnimationCache::getInstance()->addAnimation(animationLeft, "runleft");
+    
+	runAction(Animate::create(animationRight) );
+
+    schedule(schedule_selector(EnemyBase::changeDirection), 0.4f);
+	return true;
+}
+
 

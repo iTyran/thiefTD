@@ -10,15 +10,15 @@
  </layer>
  <objectgroup name="obj" width="50" height="30">
   <object name="0" x="207" y="954"/>
-  <object name="1" x="208" y="536"/>
-  <object name="2" x="592" y="534"/>
-  <object name="3" x="594" y="152"/>
-  <object name="4" x="1366" y="150"/>
-  <object name="5" x="1360" y="816"/>
-  <object name="6" x="1071" y="826"/>
-  <object name="7" x="1070" y="628"/>
-  <object name="8" x="789" y="630"/>
-  <object name="9" x="788" y="920"/>
-  <object name="10" x="550" y="918"/>
+  <object name="1" x="208" y="506"/>
+  <object name="2" x="592" y="504"/>
+  <object name="3" x="594" y="122"/>
+  <object name="4" x="1366" y="120"/>
+  <object name="5" x="1360" y="786"/>
+  <object name="6" x="1071" y="786"/>
+  <object name="7" x="1070" y="598"/>
+  <object name="8" x="789" y="590"/>
+  <object name="9" x="788" y="890"/>
+  <object name="10" x="550" y="888"/>
  </objectgroup>
 </map>
