@@ -23,15 +23,22 @@ public:
     EnemyBase();
     ~EnemyBase();
     
-    static EnemyBase *create();
+    virtual bool init();
+    CREATE_FUNC(EnemyBase);
+    
     static Animation* createAnimation(std::string prefixName, int framesNum, float delay);
     Node* currPoint();
     Node* nextPoint();
-    
+    void changeDirection(float dt);
+
     float runSpeed;
     int maxHp;
     int currHp;
     int pointCount;
+    Animation *animationRight;
+    Animation *animationLeft;
+
+    bool left;
     GameManager* instance;
 };
 
@@ -48,4 +55,4 @@ public:
 };
 
 
-#endif /* defined(__thiefTD__Enemy__) */
+#endif /* defined(__thiefTD__Enemy__) */;

@@ -26,11 +26,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
     
-    glview->setDesignResolutionSize(800.0f, 480.0f, ResolutionPolicy::SHOW_ALL);
+    glview->setDesignResolutionSize(480.0f, 320.0f, ResolutionPolicy::SHOW_ALL);
     std::vector<std::string> searchPath;
-    searchPath.push_back("width_640");
+    searchPath.push_back("height_960");
     CCFileUtils::getInstance()->setSearchPaths(searchPath);
-    director->setContentScaleFactor(640.0f / 320.0f);
+    director->setContentScaleFactor(960.0f / 320.0f);
 
     // create a scene. it's an autorelease object
     auto scene = PlayLayer::createScene();

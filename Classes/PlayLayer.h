@@ -24,6 +24,8 @@ public:
     
     static Scene* createScene();
     CREATE_FUNC(PlayLayer);
+    
+    virtual void update(float dt) override;
 
 private:
     SpriteBatchNode *spriteSheet;

@@ -16,10 +16,16 @@ runSpeed(0)
 
 EnemyBase::~EnemyBase(){ }
 
-EnemyBase *EnemyBase::create()
+bool EnemyBase::init()
 {
-    EnemyBase *enemyBase = (EnemyBase *)Sprite::create();
-    return enemyBase;
+	if (!Sprite::init())
+	{
+		return false;
+	}
+    
+    schedule(schedule_selector(EnemyBase::changeDirection), 0.4f);
+    
+	return true;
 }
 
 Animation* EnemyBase::createAnimation(std::string prefixName, int framesNum, float delay)
@@ -29,7 +35,7 @@ Animation* EnemyBase::createAnimation(std::string prefixName, int framesNum, flo
 	for (int i = 1; i <= framesNum; i++)
     {
         char buffer[20] = { 0 };
-        sprintf(buffer, "%i.png",  i);
+        sprintf(buffer, "_%i.png",  i);
         std::string str =  prefixName + buffer;
         auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(str);
         animFrames.pushBack(frame);
@@ -39,19 +45,33 @@ Animation* EnemyBase::createAnimation(std::string prefixName, int framesNum, flo
 
 Node* EnemyBase::currPoint()
 {
-    instance = GameManager::getInstance();
     return instance->pointsVector.at(pointCount);
 }
 
 Node* EnemyBase::nextPoint()
 {
-    instance = GameManager::getInstance();
+    
     int maxCount = instance->pointsVector.size();
 	pointCount++;
 	if (pointCount > maxCount-1){
 		pointCount = 0;
     }
-    return instance->pointsVector.at(pointCount);
+    auto node =instance->pointsVector.at(pointCount);
+    return node;
+}
+
+void EnemyBase::changeDirection(float dt)
+{
+    auto curr = currPoint();
+
+    if(curr->getPositionX() >= this->getPosition().x )
+    {
+        runAction( Animate::create(animationRight->clone()) );
+    }
+    else
+    {
+        runAction( Animate::create(animationLeft->clone())  );
+    }
 }
 
 
@@ -60,15 +80,18 @@ Node* EnemyBase::nextPoint()
 EnemyBase* EnemyFast::createEnemy()
 {
     auto enemyFast = EnemyBase::create();
-	Animation *animation = createAnimation("enemy", 4, 0.1f);
-	AnimationCache::getInstance()->addAnimation(animation, "runright");
-	Animate *animate = Animate::create(animation);
-    
-	enemyFast->runAction(CCRepeatForever::create( animate ));
     
     enemyFast->pointCount = 0;
     enemyFast->runSpeed = 6;
+    enemyFast->instance = GameManager::getInstance();
     
+	enemyFast->animationRight = createAnimation("enemyRight1", 4, 0.1f);
+	AnimationCache::getInstance()->addAnimation(enemyFast->animationRight, "runright");
+    enemyFast->animationLeft = createAnimation("enemyLeft1", 4, 0.1f);
+	AnimationCache::getInstance()->addAnimation(enemyFast->animationLeft, "runleft");
+
+	enemyFast->runAction(Animate::create(enemyFast->animationRight) );
+
     return enemyFast;
 }
 

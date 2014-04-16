@@ -45,9 +45,15 @@ bool PlayLayer::init()
     initPointsVector();
     addEnemy();
     
+    //schedule(schedule_selector(EnemyBase::changeDirection), 1.0f);
+    
     return true;
 }
 
+void PlayLayer::update(float dt)
+{
+    
+}
 void PlayLayer::initPointsVector()
 {
     Node *runOfPoint = NULL;
@@ -90,3 +96,4 @@ void PlayLayer::addEnemy()
                                         , CallFuncN::create(CC_CALLBACK_1(PlayLayer::runFllowPoint, this))
                                         , NULL));
 }
+

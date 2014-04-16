@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="32" height="24" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tile1" tilewidth="32" tileheight="32">
+  <image source="tile1.png" width="192" height="96"/>
+ </tileset>
+ <tileset firstgid="19" name="tile2" tilewidth="32" tileheight="32">
+  <image source="tile2.png" width="96" height="96"/>
+ </tileset>
+ <tileset firstgid="28" name="tile1" tilewidth="32" tileheight="32">
+  <image source="tile1.png" width="192" height="96"/>
+ </tileset>
+ <layer name="bg" width="32" height="24">
+  <data encoding="base64" compression="zlib">
+   eJzt1rcOwjAURuHQO4TeW+jt/V+PsyBZVqxcExsx+Je+7U5nsaPIzYYYYYwCiiihjAqq2o3rTTDFDDXU0UATLbS1G9ebY4ElOuiihxh9DLQb15O0/VX/PDffTtI29P/v/mqfFdbYYIsd9sIb07L6q30SHHDECWdchDemZfVX+1xxwx0PPPES3phm09/HbPr7mE1/Hwv9Q//QP19/yT9T8nakzfYNNf0zJW9H2mzfUNM/U/J2fPYGWMIXmA==
+  </data>
+ </layer>
+ <objectgroup name="obj" width="32" height="24">
+  <object x="144" y="753"/>
+  <object x="140" y="339"/>
+  <object x="620" y="345"/>
+  <object x="620" y="41"/>
+  <object x="919" y="44"/>
+  <object x="909" y="728"/>
+  <object x="392" y="721"/>
+ </objectgroup>
+</map>
