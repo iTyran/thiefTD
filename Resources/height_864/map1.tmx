@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="48" height="27" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32">
+  <image source="tiles.png" width="192" height="98"/>
+ </tileset>
+ <layer name="bg" width="48" height="27">
+  <data encoding="base64" compression="zlib">
+   eJztl7EOg0AMQ6/QUmgpFP7/Y/Fy0o2JjJEHBkteLjop0XPSlVJ66AF1Af+EXtAg8pE/tH6EJugd9B/oC80in/3PAq3QL+j/0AbtIp/9T7RP1be9zr5V1Iz2qfq219m3iprRPlXf9jr7VlHznp97fpia2Z4r8sg5v7I13fIrW1OdXwqeXMkfBU+u5I+CJ+r8YvZhh/lh9mGH+WH2YYf8YvLF4f5i8sXh/mLyxeH+Yvig2LcZ/jjs2wx/HPbts/ijZouaP2q2qPmjZkvEHyosLGg=
+  </data>
+ </layer>
+ <objectgroup name="obj" width="48" height="27">
+  <object name="0" x="333" y="861"/>
+  <object name="1" x="339" y="497"/>
+  <object name="2" x="727" y="494"/>
+  <object name="3" x="726" y="306"/>
+  <object name="4" x="427" y="303"/>
+  <object name="5" x="436" y="54"/>
+  <object name="6" x="1106" y="48"/>
+  <object name="7" x="1097" y="588"/>
+  <object name="8" x="821" y="597"/>
+  <object name="9" x="803" y="815"/>
+  <object name="10" x="458" y="815"/>
+ </objectgroup>
+</map>

@@ -27,10 +27,9 @@ private:
     SpriteBatchNode *spriteSheet;
     TMXTiledMap* map;
     TMXObjectGroup* objects;
-    Vector<Node*> pointsVector;
+    Vector<Node*> pointsVector; //enemy移动路径的点集
     
-    void initPointsVector();
-    void runFllowPoint(Node* node);
+    void initPointsVector(float offX);
     void addEnemy();
 };
 

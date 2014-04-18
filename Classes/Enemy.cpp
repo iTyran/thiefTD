@@ -34,33 +34,47 @@ Animation* EnemyBase::createAnimation(std::string prefixName, int framesNum, flo
     return Animation::createWithSpriteFrames(animFrames, delay);
 }
 
+void EnemyBase::changeDirection(float dt)
+{
+    auto curr = currPoint();
+    
+    if(curr->getPositionX() > this->getPosition().x )
+    {
+        runAction( Animate::create(AnimationCache::getInstance()->getAnimation("runright"))) ;
+    }else{
+        runAction( Animate::create(AnimationCache::getInstance()->getAnimation("runleft"))  );
+    }
+}
+
 Node* EnemyBase::currPoint()
 {
-    return this->pointsVector.at(pointCount);
+    return this->pointsVector.at(pointCounter);
 }
 
 Node* EnemyBase::nextPoint()
 {
     int maxCount = this->pointsVector.size();
-	pointCount++;
-	if (pointCount > maxCount-1){
-		pointCount = 0;
+	pointCounter++;
+	if (pointCounter < maxCount  ){
+		auto node =this->pointsVector.at(pointCounter);
+        return node;
     }
-    auto node =this->pointsVector.at(pointCount);
-    return node;
+    else{
+        pointCounter = maxCount -1 ;
+    }
+    return NULL;
 }
 
-void EnemyBase::changeDirection(float dt)
+void EnemyBase::runFllowPoint()
 {
-    auto curr = currPoint();
-
-    if(curr->getPositionX() >= this->getPosition().x )
-    {
-        runAction( Animate::create(animationRight->clone()) );
-    }
-    else
-    {
-        runAction( Animate::create(animationLeft->clone())  );
+    auto point = currPoint();
+    setPosition(point->getPosition());
+    point = nextPoint();
+    
+    if( point!= NULL ){
+        runAction(CCSequence::create(MoveTo::create(getRunSpeed(), point->getPosition())
+                                     , CallFuncN::create(CC_CALLBACK_0(EnemyBase::runFllowPoint, this))
+                                     , NULL));
     }
 }
 
@@ -69,7 +83,7 @@ void EnemyBase::setPointsVector(Vector<Node*> points)
     this->pointsVector = points;
 }
 
-//--------------Thief------------------
+//==================Thief class====================//
 
 bool Thief::init()
 {
@@ -77,18 +91,32 @@ bool Thief::init()
 	{
 		return false;
 	}
-    pointCount = 0;
+    pointCounter = 0;
     setRunSpeed(6);
-    
     animationRight = createAnimation("enemyRight1", 4, 0.1f);
 	AnimationCache::getInstance()->addAnimation(animationRight, "runright");
     animationLeft = createAnimation("enemyLeft1", 4, 0.1f);
 	AnimationCache::getInstance()->addAnimation(animationLeft, "runleft");
-    
-	runAction(Animate::create(animationRight) );
 
     schedule(schedule_selector(EnemyBase::changeDirection), 0.4f);
 	return true;
 }
 
+Thief* Thief::createThief(Vector<Node*> points)
+{
+    Thief *pRet = new Thief();
+    if (pRet && pRet->init())
+    {
+        pRet->setPointsVector(points);
+        pRet->runFllowPoint();
 
+        pRet->autorelease();
+        return pRet;
+    }
+    else
+    {
+        delete pRet;
+        pRet = NULL;
+        return NULL;
+    }
+}

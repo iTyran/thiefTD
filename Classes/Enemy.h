@@ -22,19 +22,19 @@ public:
     
     virtual bool init() override;
     CREATE_FUNC(EnemyBase);
-    
-    Node* currPoint();
-    Node* nextPoint();
+
     Animation* createAnimation(std::string prefixName, int framesNum, float delay);
     void changeDirection(float dt);
+    Node* currPoint();
+    Node* nextPoint();
+    void runFllowPoint();
     void setPointsVector(Vector<Node*> points);
     
 private:
     Vector<Node*> pointsVector;
-    
 
 protected:
-    int pointCount;
+    int pointCounter;
     Animation *animationRight;
     Animation *animationLeft;
     CC_SYNTHESIZE(float, runSpeed, RunSpeed);
@@ -47,11 +47,10 @@ class Thief : public EnemyBase
 {
 public:
     virtual bool init() override;
-    CREATE_FUNC(Thief);
+    
+    static Thief* createThief(Vector<Node*> points);
     
 };
-
-
 
 
 #endif /* defined(__thiefTD__Enemy__) *///;
