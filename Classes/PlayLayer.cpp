@@ -11,6 +11,10 @@
 
 
 PlayLayer::PlayLayer()
+:spriteSheet(NULL)
+,map(NULL)
+,objects(NULL)
+,pointsVector(NULL)
 {
 }
 
@@ -35,7 +39,7 @@ bool PlayLayer::init()
     
     
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Sprite.plist");
-    auto spriteSheet = CCSpriteBatchNode::create("Sprite.png");
+    spriteSheet = SpriteBatchNode::create("Sprite.png");
     addChild(spriteSheet);
     
     map = TMXTiledMap::create("map1.tmx");

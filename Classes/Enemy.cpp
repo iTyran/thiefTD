@@ -10,6 +10,20 @@
 #include "CCVector.h"
 
 
+EnemyBase::EnemyBase()
+:pointCounter(0)
+,animationRight(NULL)
+,animationLeft(NULL)
+,pointsVector(NULL)
+,runSpeed(0)
+,maxHp(0)
+,currHp(0)
+{
+}
+
+EnemyBase::~EnemyBase()
+{}
+
 bool EnemyBase::init()
 {
 	if (!Sprite::init())
@@ -91,7 +105,6 @@ bool Thief::init()
 	{
 		return false;
 	}
-    pointCounter = 0;
     setRunSpeed(6);
     animationRight = createAnimation("enemyRight1", 4, 0.1f);
 	AnimationCache::getInstance()->addAnimation(animationRight, "runright");

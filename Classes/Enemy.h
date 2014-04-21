@@ -19,7 +19,8 @@ USING_NS_CC;
 class EnemyBase : public Sprite
 {
 public:
-    
+    EnemyBase();
+    ~EnemyBase();
     virtual bool init() override;
     CREATE_FUNC(EnemyBase);
     
