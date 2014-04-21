@@ -97,7 +97,7 @@ bool Thief::init()
 	AnimationCache::getInstance()->addAnimation(animationRight, "runright");
     animationLeft = createAnimation("enemyLeft1", 4, 0.1f);
 	AnimationCache::getInstance()->addAnimation(animationLeft, "runleft");
-
+    
     schedule(schedule_selector(EnemyBase::changeDirection), 0.4f);
 	return true;
 }
@@ -109,7 +109,7 @@ Thief* Thief::createThief(Vector<Node*> points)
     {
         pRet->setPointsVector(points);
         pRet->runFllowPoint();
-
+        
         pRet->autorelease();
         return pRet;
     }

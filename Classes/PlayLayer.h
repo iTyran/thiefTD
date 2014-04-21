@@ -22,7 +22,7 @@ public:
     virtual bool init() override;
     static Scene* createScene();
     CREATE_FUNC(PlayLayer);
-
+    
 private:
     SpriteBatchNode *spriteSheet;
     TMXTiledMap* map;

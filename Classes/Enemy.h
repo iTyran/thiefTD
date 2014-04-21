@@ -22,7 +22,7 @@ public:
     
     virtual bool init() override;
     CREATE_FUNC(EnemyBase);
-
+    
     Animation* createAnimation(std::string prefixName, int framesNum, float delay);
     void changeDirection(float dt);
     Node* currPoint();
@@ -32,7 +32,7 @@ public:
     
 private:
     Vector<Node*> pointsVector;
-
+    
 protected:
     int pointCounter;
     Animation *animationRight;

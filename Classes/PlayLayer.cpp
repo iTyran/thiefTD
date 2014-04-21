@@ -48,7 +48,7 @@ bool PlayLayer::init()
     float offX = ( map->getContentSize().width - winSize.width )/ 2;
     initPointsVector(offX);
     addEnemy();
-  
+    
     return true;
 }
 
@@ -62,7 +62,7 @@ void PlayLayer::initPointsVector(float offX)
 	{
 		float x = point.at("x").asFloat();
 		float y = point.at("y").asFloat();
-		runOfPoint = Node::create(); 
+		runOfPoint = Node::create();
 		runOfPoint->setPosition(Point(x - offX , y  ));
 		this->pointsVector.pushBack(runOfPoint);
 		count++;
@@ -75,6 +75,6 @@ void PlayLayer::addEnemy()
 {
     EnemyBase* enemy = Thief::createThief(pointsVector);
 	this->addChild(enemy);
-
+    
 }
 
