@@ -11,6 +11,8 @@
 
 #include <iostream>
 #include "cocos2d.h"
+#include "Enemy.h"
+#include "Tower.h"
 
 USING_NS_CC;
 class PlayLayer : public Layer
@@ -23,6 +25,7 @@ public:
     static Scene* createScene();
     CREATE_FUNC(PlayLayer);
     
+    Vector<EnemyBase*> enemyVector;
 private:
     SpriteBatchNode *spriteSheet;
     TMXTiledMap* map;
@@ -31,6 +34,7 @@ private:
     
     void initPointsVector(float offX);
     void addEnemy();
+    void addTower();
 };
 
 #endif /* defined(__thiefTD__PlayLayer__) */

@@ -7,7 +7,6 @@
 //
 
 #include "PlayLayer.h"
-#include "Enemy.h"
 
 
 PlayLayer::PlayLayer()
@@ -15,6 +14,7 @@ PlayLayer::PlayLayer()
 ,map(NULL)
 ,objects(NULL)
 ,pointsVector(NULL)
+,enemyVector(NULL)
 {
 }
 
@@ -37,7 +37,6 @@ bool PlayLayer::init()
     }
     Size winSize = Director::getInstance()->getWinSize();
     
-    
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Sprite.plist");
     spriteSheet = SpriteBatchNode::create("Sprite.png");
     addChild(spriteSheet);
@@ -52,7 +51,9 @@ bool PlayLayer::init()
     float offX = ( map->getContentSize().width - winSize.width )/ 2;
     initPointsVector(offX);
     addEnemy();
+    addTower();
     
+    scheduleUpdate();
     return true;
 }
 
@@ -78,7 +79,25 @@ void PlayLayer::initPointsVector(float offX)
 void PlayLayer::addEnemy()
 {
     EnemyBase* enemy = Thief::createThief(pointsVector);
+    enemy->setTag(1);
 	this->addChild(enemy);
+    this->enemyVector.pushBack(enemy);
+    
+}
+
+void PlayLayer::addTower()
+{
+    Size winSize = Director::getInstance()->getWinSize();
+    
+    TowerBase* tower = ArrowTower::createArrowTower(this->enemyVector);
+    tower->setPosition(Point(160.0f, 245.0f));
+    
+    this->addChild(tower);
+    
+    TowerBase* tower1 = ArrowTower::createArrowTower(this->enemyVector);
+    tower1->setPosition(Point(270.0f, 160.0f));
+    
+    this->addChild(tower1);
     
 }
 

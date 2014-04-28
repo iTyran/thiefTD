@@ -12,7 +12,7 @@
 #include <iostream>
 
 #include "cocos2d.h"
-#include "PlayLayer.h"
+
 
 
 USING_NS_CC;
@@ -30,7 +30,13 @@ public:
     Node* nextPoint();
     void runFllowPoint();
     void setPointsVector(Vector<Node*> points);
-    
+    void enemyExpload();
+    void removeEnemy();
+
+	CC_SYNTHESIZE(float, hpPercentage, HpPercentage);
+    CC_SYNTHESIZE_READONLY(ProgressTimer*, hpBar, HpBar);
+
+	void createAndSetHpBar();
 private:
     Vector<Node*> pointsVector;
     
@@ -38,10 +44,12 @@ protected:
     int pointCounter;
     Animation *animationRight;
     Animation *animationLeft;
+    Animation *animationExplode;
     CC_SYNTHESIZE(float, runSpeed, RunSpeed);
     CC_SYNTHESIZE(int, maxHp, MaxHp);
     CC_SYNTHESIZE(int, currHp, CurrHp);
-    
+	Sprite* sprite;
+    Sprite* hpBgSprite;
 };
 
 class Thief : public EnemyBase
