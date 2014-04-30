@@ -10,12 +10,10 @@
 #define __thiefTD__Enemy__
 
 #include <iostream>
-
 #include "cocos2d.h"
 
-
-
 USING_NS_CC;
+
 class EnemyBase : public Sprite
 {
 public:
@@ -31,11 +29,10 @@ public:
     void runFllowPoint();
     void setPointsVector(Vector<Node*> points);
     void enemyExpload();
-    void removeEnemy();
-
+    
 	CC_SYNTHESIZE(float, hpPercentage, HpPercentage);
     CC_SYNTHESIZE_READONLY(ProgressTimer*, hpBar, HpBar);
-
+    
 	void createAndSetHpBar();
 private:
     Vector<Node*> pointsVector;
@@ -52,14 +49,6 @@ protected:
     Sprite* hpBgSprite;
 };
 
-class Thief : public EnemyBase
-{
-public:
-    virtual bool init() override;
-    
-    static Thief* createThief(Vector<Node*> points);
-    
-};
 
 
 #endif /* defined(__thiefTD__Enemy__) *///;

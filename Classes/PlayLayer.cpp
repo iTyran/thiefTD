@@ -7,14 +7,15 @@
 //
 
 #include "PlayLayer.h"
-
+#include "GameManager.h"
 
 PlayLayer::PlayLayer()
-:spriteSheet(NULL)
+:isTouchEnable(false)
+,spriteSheet(NULL)
 ,map(NULL)
 ,objects(NULL)
 ,pointsVector(NULL)
-,enemyVector(NULL)
+,chooseTowerpanle(NULL)
 {
 }
 
@@ -51,7 +52,11 @@ bool PlayLayer::init()
     float offX = ( map->getContentSize().width - winSize.width )/ 2;
     initPointsVector(offX);
     addEnemy();
-    addTower();
+    
+    
+    auto touchListener = EventListenerTouchOneByOne::create();
+    touchListener->onTouchBegan = CC_CALLBACK_2(PlayLayer::onTouchBegan, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
     
     scheduleUpdate();
     return true;
@@ -78,26 +83,115 @@ void PlayLayer::initPointsVector(float offX)
 
 void PlayLayer::addEnemy()
 {
+    GameManager *instance = GameManager::getInstance();
+    
     EnemyBase* enemy = Thief::createThief(pointsVector);
-    enemy->setTag(1);
 	this->addChild(enemy);
-    this->enemyVector.pushBack(enemy);
+    instance->enemyVector.pushBack(enemy);
     
 }
 
-void PlayLayer::addTower()
+
+bool PlayLayer::onTouchBegan(Touch *touch, Event *event)
 {
-    Size winSize = Director::getInstance()->getWinSize();
+	this->removeChild(chooseTowerpanle);
+	chooseTowerpanle = NULL;
     
-    TowerBase* tower = ArrowTower::createArrowTower(this->enemyVector);
-    tower->setPosition(Point(160.0f, 245.0f));
+    //if(isTouchEnable)
+    // {
+    auto location = touch->getLocation();
+    addTowerChoosePanle(location);
+    towerPos = location;
+    // }
     
-    this->addChild(tower);
-    
-    TowerBase* tower1 = ArrowTower::createArrowTower(this->enemyVector);
-    tower1->setPosition(Point(270.0f, 160.0f));
-    
-    this->addChild(tower1);
-    
+	return true;
 }
+
+
+void PlayLayer::addTowerChoosePanle(Point point)
+{
+    chooseTowerpanle = TowerPanleLayer::create();
+    chooseTowerpanle->setPosition(point);
+    this->addChild(chooseTowerpanle);
+}
+
+void PlayLayer::update(float dt)
+{
+    GameManager *instance = GameManager::getInstance();
+    
+    auto bulletVector = instance->bulletVector;
+    auto enemyVector = instance->enemyVector;
+    auto towerVector = instance->towerVector;
+    
+    if(chooseTowerpanle != NULL )
+	{
+		auto type = chooseTowerpanle->getChooseTowerType();
+		if( type == TowerType::ARROW_TOWER)
+        {
+			TowerBase* tower = ArrowTower::create();
+			tower->setPosition(towerPos);
+			this->addChild(tower);
+            instance->towerVector.pushBack(tower);
+            
+			type =  TowerType::ANOTHER;
+			chooseTowerpanle->setChooseTowerType(type);
+            
+		}
+	}
+    
+    Vector<EnemyBase*> enemyNeedToDelete;
+	Vector<Sprite*> bulletNeedToDelete;
+    // 碰撞检测
+    for (int i = 0; i < bulletVector.size(); i++)
+	{
+		auto  bullet = bulletVector.at(i);
+        bullet->boundingBox();
+		auto  bulletRect = Rect(bullet->getPositionX()+bullet->getParent()->getPositionX() - bullet->getContentSize().width / 2,
+                                bullet->getPositionY() +bullet->getParent()->getPositionY() - bullet->getContentSize().height / 2,
+                                bullet->getContentSize().width,
+                                bullet->getContentSize().height );
+        
+		for (int j = 0; j < enemyVector.size(); j++)
+		{
+			auto enemy = enemyVector.at(j);
+			auto enemyRect = enemy->sprite->boundingBox();
+            
+			if (bulletRect.intersectsRect(enemyRect))
+			{
+                auto currHp = enemy->getCurrHp();
+                currHp--;
+                enemy->setCurrHp( currHp );
+                
+				auto currHpPercentage = enemy->getHpPercentage();
+                auto offHp = 100 / enemy->getMaxHp();
+				currHpPercentage -= offHp;
+                if(currHpPercentage < 0){
+                    currHpPercentage = 0;
+                }
+                enemy->setHpPercentage(currHpPercentage);
+				enemy->getHpBar()->setPercentage(currHpPercentage);
+                
+                if(currHp <= 0)
+                {
+                    enemyNeedToDelete.pushBack(enemy);
+                }
+                bulletNeedToDelete.pushBack( bullet);
+			}
+		}
+		for (EnemyBase* enemyTemp : enemyNeedToDelete)
+		{
+            enemyTemp->enemyExpload();
+            instance->enemyVector.eraseObject(enemyTemp);
+		}
+		enemyNeedToDelete.clear();
+	}
+	
+	for (const auto& bulletTemp : bulletNeedToDelete)
+	{
+		instance->bulletVector.eraseObject(bulletTemp);
+        bulletTemp->removeFromParent();
+	}
+	bulletNeedToDelete.clear();
+}
+
 

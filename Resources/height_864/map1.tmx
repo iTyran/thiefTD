@@ -9,16 +9,16 @@
   </data>
  </layer>
  <objectgroup name="obj" width="48" height="27">
-  <object name="0" x="333" y="861"/>
-  <object name="1" x="339" y="497"/>
-  <object name="2" x="727" y="494"/>
-  <object name="3" x="726" y="306"/>
-  <object name="4" x="427" y="303"/>
-  <object name="5" x="436" y="54"/>
-  <object name="6" x="1106" y="48"/>
-  <object name="7" x="1097" y="588"/>
-  <object name="8" x="821" y="597"/>
-  <object name="9" x="803" y="815"/>
-  <object name="10" x="458" y="815"/>
+  <object name="0" x="333" y="911"/>
+  <object name="1" x="339" y="547"/>
+  <object name="2" x="727" y="544"/>
+  <object name="3" x="726" y="356"/>
+  <object name="4" x="427" y="353"/>
+  <object name="5" x="436" y="104"/>
+  <object name="6" x="1106" y="98"/>
+  <object name="7" x="1097" y="638"/>
+  <object name="8" x="821" y="647"/>
+  <object name="9" x="803" y="865"/>
+  <object name="10" x="458" y="865"/>
  </objectgroup>
 </map>

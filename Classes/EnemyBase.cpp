@@ -1,17 +1,17 @@
 //
-//  Enemy.cpp
+//  EnemyBase.cpp
 //  thiefTD
 //
 //  Created by cocos2d-x on 14-4-11.
 //
 //
 
-#include "Enemy.h"
-#include "CCVector.h"
-
+#include "EnemyBase.h"
 
 EnemyBase::EnemyBase()
-:pointCounter(0)
+:sprite(NULL)
+,hpBgSprite(NULL)
+,pointCounter(0)
 ,animationRight(NULL)
 ,animationLeft(NULL)
 ,animationExplode(NULL)
@@ -105,24 +105,21 @@ void EnemyBase::runFllowPoint()
     
     if( point!= NULL ){
         sprite->runAction(Sequence::create(MoveTo::create(getRunSpeed(), point->getPosition())
-                                   , CallFuncN::create(CC_CALLBACK_0(EnemyBase::runFllowPoint, this))
-                                   , NULL));
+                                           , CallFuncN::create(CC_CALLBACK_0(EnemyBase::runFllowPoint, this))
+                                           , NULL));
     }
 }
 
 void EnemyBase::enemyExpload()
 {
-    hpBgSprite->removeFromParent();
+    hpBgSprite->setVisible(false);
     sprite->stopAllActions();
     unschedule(schedule_selector(EnemyBase::changeDirection));
+    // 修整爆炸动画的位置，因为它比其他状态都要大
+    sprite->setAnchorPoint(Point(0.5f, 0.25f));
     sprite->runAction(Sequence::create(Animate::create(AnimationCache::getInstance()->getAnimation("explode"))
-                               ,CallFuncN::create(CC_CALLBACK_0(EnemyBase::removeFromParent, this))
-                               , NULL));
-}
-
-void EnemyBase::removeEnemy()
-{
-    this->removeFromParent();
+                                       ,CallFuncN::create(CC_CALLBACK_0(EnemyBase::removeFromParent, this))
+                                       , NULL));
 }
 
 void EnemyBase::setPointsVector(Vector<Node*> points)
@@ -130,47 +127,5 @@ void EnemyBase::setPointsVector(Vector<Node*> points)
     this->pointsVector = points;
 }
 
-//==================Thief class====================//
 
-bool Thief::init()
-{
-	if (!Sprite::init())
-	{
-		return false;
-	}
-    setRunSpeed(9);
-    setMaxHp(10);
-    setCurrHp(10);
-    sprite = Sprite::createWithSpriteFrameName("enemyRight1_1.png");
-    this->addChild(sprite);
-    animationRight = createAnimation("enemyRight1", 4, 0.1f);
-	AnimationCache::getInstance()->addAnimation(animationRight, "runright");
-    animationLeft = createAnimation("enemyLeft1", 4, 0.1f);
-	AnimationCache::getInstance()->addAnimation(animationLeft, "runleft");
-    animationExplode= createAnimation("explode", 6, 0.15f);
-	AnimationCache::getInstance()->addAnimation(animationExplode, "explode");
-    
-    createAndSetHpBar();
-	schedule(schedule_selector(EnemyBase::changeDirection), 0.4f);
-	return true;
-}
-
-Thief* Thief::createThief(Vector<Node*> points)
-{
-    Thief *pRet = new Thief();
-    if (pRet && pRet->init())
-    {
-        pRet->setPointsVector(points);
-        pRet->runFllowPoint();
-        
-        pRet->autorelease();
-        return pRet;
-    }
-    else
-    {
-        delete pRet;
-        pRet = NULL;
-        return NULL;
-    }
-}
 
