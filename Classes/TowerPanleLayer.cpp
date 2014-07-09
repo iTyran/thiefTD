@@ -14,23 +14,25 @@ bool TowerPanleLayer::init()
 	{
 		return false;
 	}
-    auto sprite = Sprite::createWithSpriteFrameName("enemyRight1_2.png");
+    chooseTowerType = ANOTHER;
+    
+    auto sprite = Sprite::createWithSpriteFrameName("towerPos.png");
     sprite->setPosition(Point(0, 0));
     this->addChild(sprite);
-    
-    sprite2 = Sprite::createWithSpriteFrameName("enemyRight1_2.png");
-	sprite2->setAnchorPoint( Point(0.5f, 0));
-    sprite2->setPosition(Point(0, sprite2->getContentSize().height/2));
-    this->addChild(sprite2);
-    
-	sprite1 = Sprite::createWithSpriteFrameName("enemyRight1_1.png");
+
+    sprite1 = Sprite::createWithSpriteFrameName("arrowTower.png");
 	sprite1->setAnchorPoint( Point(0.5f, 0));
-    sprite1->setPosition(Point(-sprite2->getContentSize().width, sprite2->getContentSize().height/2));
+    sprite1->setPosition(Point(-sprite->getContentSize().width, sprite->getContentSize().height/2));
     this->addChild(sprite1);
     
-	sprite3 = Sprite::createWithSpriteFrameName("enemyRight1_3.png");
+    sprite2 = Sprite::createWithSpriteFrameName("mftower.png");
+	sprite2->setAnchorPoint( Point(0.5f, 0));
+    sprite2->setPosition(Point(0, sprite->getContentSize().height/2));
+    this->addChild(sprite2);
+    
+	sprite3 = Sprite::createWithSpriteFrameName("deceleratetower.png");
 	sprite3->setAnchorPoint( Point(0.5f, 0));
-    sprite3->setPosition(Point(sprite2->getContentSize().width, sprite2->getContentSize().height/2));
+    sprite3->setPosition(Point(sprite->getContentSize().width, sprite->getContentSize().height/2));
     this->addChild(sprite3);
     
     auto touchListener = EventListenerTouchOneByOne::create();
@@ -42,7 +44,6 @@ bool TowerPanleLayer::init()
     _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener->clone(), sprite2);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener->clone(), sprite3);
     
-    chooseTowerType = ANOTHER;
 	return true;
 }
 
@@ -51,9 +52,9 @@ bool TowerPanleLayer::onTouchBegan(Touch *touch, Event *event)
 {
 	auto target = static_cast<Sprite*>(event->getCurrentTarget());
     
-    Point locationInNode = target->convertToNodeSpace(touch->getLocation());
-    Size s = target->getContentSize();
-    Rect rect = Rect(0, 0, s.width, s.height);
+    Point locationInNode = target->convertTouchToNodeSpace(touch);
+    Size size = target->getContentSize();
+    Rect rect = Rect(0, 0, size.width, size.height);
     
     if (rect.containsPoint(locationInNode))
     {
@@ -73,15 +74,14 @@ void TowerPanleLayer::onTouchEnded(Touch* touch, Event* event)
     }
     else if(target == sprite2)
     {
-        chooseTowerType = ARROW_TOWER;
+        chooseTowerType = DECELERATE_TOWER;
     }
 	else if(target == sprite3)
     {
-        chooseTowerType = ARROW_TOWER;
+        chooseTowerType = MULTIDIR_TOWER;
     }
     else{
         chooseTowerType = ANOTHER;
     }
-	this->setVisible(false);
 }
 

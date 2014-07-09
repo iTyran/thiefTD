@@ -17,6 +17,9 @@ bool ArrowTower::init()
 	}
     
     setScope(90);
+    setLethality(2);
+	setTowerValue(250);
+    setRate(2);
     auto baseplate = Sprite::createWithSpriteFrameName("baseplate.png");
     addChild(baseplate);
     
@@ -25,7 +28,6 @@ bool ArrowTower::init()
     addChild(rotateArrow);
     
     schedule(schedule_selector(ArrowTower::rotateAndShoot), 0.8f);
-    scheduleUpdate();
 	return true;
 }
 
@@ -45,13 +47,13 @@ void ArrowTower::rotateAndShoot(float dt)
     checkNearestEnemy();
     if (nearestEnemy != NULL)
 	{
-		Point shootVector = nearestEnemy->sprite->getPosition() - this->getPosition();
-		float shootRadians = shootVector.getAngle();
-		float shootDegrees = CC_RADIANS_TO_DEGREES(-1 * shootRadians);
+		auto rotateVector = nearestEnemy->sprite->getPosition() - this->getPosition();
+		auto rotateRadians = rotateVector.getAngle();
+		auto rotateDegrees = CC_RADIANS_TO_DEGREES(-1 * rotateRadians);
         
-		float speed = 0.5 / M_PI;
-		float rotateDuration = fabs(shootRadians * speed);
-        rotateArrow->runAction( Sequence::create(RotateTo::create(rotateDuration, shootDegrees),
+		auto speed = 0.5 / M_PI;
+		auto rotateDuration = fabs(rotateRadians * speed);
+        rotateArrow->runAction( Sequence::create(RotateTo::create(rotateDuration, rotateDegrees),
                                                  CallFunc::create(CC_CALLBACK_0(ArrowTower::shoot, this)),
                                                  NULL));
 	}
@@ -60,21 +62,21 @@ void ArrowTower::rotateAndShoot(float dt)
 void ArrowTower::shoot()
 {
     GameManager *instance = GameManager::getInstance();
-    
     auto bulletVector = instance->bulletVector;
     
     if(nearestEnemy!=NULL && nearestEnemy->getCurrHp() > 0 )
     {
-        auto moveDuration = 2;
-        Point shootVector1 = nearestEnemy->sprite->getPosition() - this->getPosition();
-		Point normalizedShootVector = -shootVector1.normalize();
+        auto currBullet = ArrowTowerBullet();
+        instance->bulletVector.pushBack(currBullet);
+        
+        auto moveDuration = getRate();
+        Point shootVector = nearestEnemy->sprite->getPosition() - this->getPosition();
+		Point normalizedShootVector = -shootVector.normalize();
         
         auto farthestDistance = Director::getInstance()->getWinSize().width;
 		Point overshotVector = normalizedShootVector * farthestDistance;
 		Point offscreenPoint = (rotateArrow->getPosition() - overshotVector);
         
-        auto currBullet = ArrowTowerBullet();
-        instance->bulletVector.pushBack(currBullet);
 		currBullet->runAction(Sequence::create(MoveTo::create(moveDuration, offscreenPoint),
                                                CallFuncN::create(CC_CALLBACK_1(ArrowTower::removeBullet, this)),
                                                NULL));
@@ -92,6 +94,4 @@ void ArrowTower::removeBullet(Node* pSender)
     instance->bulletVector.eraseObject(sprite);
     sprite->removeFromParent();
 }
-
-
 

@@ -5,6 +5,8 @@
 //  Created by cocos2d-x on 14-4-11.
 //
 //
+#define MAP_WIDTH (16)
+#define MAP_HEIGHT (9)
 
 #include "PlayLayer.h"
 #include "GameManager.h"
@@ -16,11 +18,17 @@ PlayLayer::PlayLayer()
 ,objects(NULL)
 ,pointsVector(NULL)
 ,chooseTowerpanle(NULL)
+,towerMatrix(NULL)
+,money(0)
 {
 }
 
 PlayLayer::~PlayLayer()
 {
+    if (towerMatrix) {
+        free(towerMatrix);
+    }
+	pointsVector.clear();
 }
 
 Scene *PlayLayer::createScene()
@@ -38,27 +46,42 @@ bool PlayLayer::init()
     }
     Size winSize = Director::getInstance()->getWinSize();
     
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Sprite.plist");
-    spriteSheet = SpriteBatchNode::create("Sprite.png");
+    auto gameBg = Sprite::create("playbg.png");
+	gameBg->setPosition (Point(winSize.width / 2 ,winSize.height / 2));
+	addChild(gameBg, -20);
+    
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Play.plist");
+    spriteSheet = SpriteBatchNode::create("Play.png");
     addChild(spriteSheet);
     
-    map = TMXTiledMap::create("map1.tmx");
-    auto bgLayer = map->getLayer("bg");
+    money =2000;
+    
+    map = TMXTiledMap::create("map.tmx");
+    bgLayer = map->getLayer("bg");
     bgLayer->setAnchorPoint(Point(0.5f, 0.5f));
     bgLayer->setPosition(Point(winSize.width / 2 ,winSize.height / 2));
 	objects = map->getObjectGroup("obj");
-    this->addChild(map, -1);
+    this->addChild(map, -10);
     
-    float offX = ( map->getContentSize().width - winSize.width )/ 2;
+    offX = ( map->getContentSize().width - winSize.width )/ 2;
     initPointsVector(offX);
     addEnemy();
-    
     
     auto touchListener = EventListenerTouchOneByOne::create();
     touchListener->onTouchBegan = CC_CALLBACK_2(PlayLayer::onTouchBegan, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
     
     scheduleUpdate();
+    
+    int arraySize = sizeof(TowerBase *) * MAP_WIDTH * MAP_HEIGHT;
+    towerMatrix = (TowerBase **)malloc(arraySize);
+    memset((void*)towerMatrix, 0, arraySize);
+    
+	for (int row = 0; row < MAP_HEIGHT; row++) {
+		for (int col = 0; col < MAP_WIDTH; col++) {
+            towerMatrix[row * MAP_WIDTH + col] = NULL;
+        }
+    }
     return true;
 }
 
@@ -86,7 +109,7 @@ void PlayLayer::addEnemy()
     GameManager *instance = GameManager::getInstance();
     
     EnemyBase* enemy = Thief::createThief(pointsVector);
-	this->addChild(enemy);
+	this->addChild(enemy, -1);
     instance->enemyVector.pushBack(enemy);
     
 }
@@ -96,14 +119,10 @@ bool PlayLayer::onTouchBegan(Touch *touch, Event *event)
 {
 	this->removeChild(chooseTowerpanle);
 	chooseTowerpanle = NULL;
-    
-    //if(isTouchEnable)
-    // {
+
     auto location = touch->getLocation();
-    addTowerChoosePanle(location);
-    towerPos = location;
-    // }
     
+    checkAndAddTowerPanle(location);
 	return true;
 }
 
@@ -115,6 +134,132 @@ void PlayLayer::addTowerChoosePanle(Point point)
     this->addChild(chooseTowerpanle);
 }
 
+Point PlayLayer::convertTotileCoord(Point position)
+{
+	int x = (position.x + offX)/ map->getContentSize().width * map->getMapSize().width;
+	int y =map->getMapSize().height- position.y / map->getContentSize().height * map->getMapSize().height;
+    
+	return Point(x, y);
+}
+Point PlayLayer::convertToMatrixCoord(Point position)
+{
+	int x = (position.x + offX)/ map->getContentSize().width * map->getMapSize().width;
+	int y = position.y / map->getContentSize().height * map->getMapSize().height;
+	return Point(x, y);
+}
+
+void PlayLayer::checkAndAddTowerPanle(Point position)
+{
+	Point towerCoord = convertTotileCoord(position);
+	Point matrixCoord = convertToMatrixCoord(position);
+	int MatrixIndex = static_cast<int>( matrixCoord.y * MAP_WIDTH + matrixCoord.x );
+    
+	int gid = bgLayer->getTileGIDAt(towerCoord);
+	auto tileTemp = map->getPropertiesForGID(gid).asValueMap();
+	auto tileWidth = map->getContentSize().width /	map->getMapSize().width;
+	auto tileHeight = map->getContentSize().height / map->getMapSize().height;
+	int TouchVaule;
+	if (tileTemp.size() == 0)
+	{
+		TouchVaule = 0;
+	}
+	else
+	{
+		TouchVaule = tileTemp.at("canTouch").asInt();
+	}
+	towerPos = Point((towerCoord.x * tileWidth) + tileWidth/2 -offX, map->getContentSize().height - (towerCoord.y * tileHeight) - tileHeight/2);
+    
+    if (1 == TouchVaule && towerMatrix[MatrixIndex]==NULL)
+	{
+		addTowerChoosePanle(towerPos);
+	}
+	else
+	{
+		auto tips = Sprite::createWithSpriteFrameName("no.png");
+		tips->setPosition(towerPos);
+		this->addChild(tips);
+		tips->runAction(Sequence::create(DelayTime::create(0.8f),
+                                         CallFunc::create(CC_CALLBACK_0(Sprite::removeFromParent, tips)),
+                                         NULL));
+	}
+}
+
+void PlayLayer::addTower()
+{
+    if(chooseTowerpanle != NULL )
+	{
+		auto type = chooseTowerpanle->getChooseTowerType();
+		Point matrixCoord = convertToMatrixCoord(towerPos);
+		int MatrixIndex = static_cast<int>( matrixCoord.y * MAP_WIDTH + matrixCoord.x );
+		bool noMoneyTips = false;
+		if( type == TowerType::ARROW_TOWER )
+        {
+			if( money >= 200 )
+			{
+				TowerBase* tower = ArrowTower::create();
+				tower->setPosition(towerPos);
+				tower->runAction(Sequence::create(FadeIn::create(1.0f),NULL));
+				this->addChild(tower);
+				towerMatrix[MatrixIndex] =  tower;
+				money -= 200;
+			}else{
+				noMoneyTips = true;
+			}
+			type =  TowerType::ANOTHER;
+			chooseTowerpanle->setChooseTowerType(type);
+            this->removeChild(chooseTowerpanle);
+            chooseTowerpanle = NULL;
+		}
+        else if( type == TowerType::DECELERATE_TOWER )
+        {
+			if( money >= 150 )
+			{
+				DecelerateTower* tower = DecelerateTower::create();
+				tower->setPosition(towerPos);
+				tower->runAction(Sequence::create(FadeIn::create(1.0f),NULL));
+				this->addChild(tower);
+				towerMatrix[MatrixIndex] =  tower;
+				money -= 150;
+			}else{
+				noMoneyTips = true;
+			}
+            
+			type =  TowerType::ANOTHER;
+			chooseTowerpanle->setChooseTowerType(type);
+            this->removeChild(chooseTowerpanle);
+            chooseTowerpanle = NULL;
+		}
+		else if( type == TowerType::MULTIDIR_TOWER )
+        {
+			if( money >= 600 )
+			{
+				MultiDirTower* tower = MultiDirTower::create();
+				tower->setPosition(towerPos);
+				tower->runAction(Sequence::create(FadeIn::create(1.0f),NULL));
+				this->addChild(tower);
+				towerMatrix[MatrixIndex] =  tower;
+				money -= 600;
+			}else{
+				noMoneyTips = true;
+			}
+			type =  TowerType::ANOTHER;
+			chooseTowerpanle->setChooseTowerType(type);
+            this->removeChild(chooseTowerpanle);
+            chooseTowerpanle = NULL;
+		}
+        
+		if( noMoneyTips == true )
+		{
+			auto tips = Sprite::createWithSpriteFrameName("nomoney_mark.png");
+			tips->setPosition(towerPos);
+			this->addChild(tips);
+			tips->runAction(Sequence::create(DelayTime::create(0.5f),
+                                             CallFunc::create(CC_CALLBACK_0(Sprite::removeFromParent, tips)),
+                                             NULL));
+		}
+	}
+}
+
 void PlayLayer::update(float dt)
 {
     GameManager *instance = GameManager::getInstance();
@@ -123,30 +268,14 @@ void PlayLayer::update(float dt)
     auto enemyVector = instance->enemyVector;
     auto towerVector = instance->towerVector;
     
-    if(chooseTowerpanle != NULL )
-	{
-		auto type = chooseTowerpanle->getChooseTowerType();
-		if( type == TowerType::ARROW_TOWER)
-        {
-			TowerBase* tower = ArrowTower::create();
-			tower->setPosition(towerPos);
-			this->addChild(tower);
-            instance->towerVector.pushBack(tower);
-            
-			type =  TowerType::ANOTHER;
-			chooseTowerpanle->setChooseTowerType(type);
-            
-		}
-	}
-    
+    addTower();
     Vector<EnemyBase*> enemyNeedToDelete;
 	Vector<Sprite*> bulletNeedToDelete;
-    // 碰撞检测
     for (int i = 0; i < bulletVector.size(); i++)
 	{
 		auto  bullet = bulletVector.at(i);
-        bullet->boundingBox();
-		auto  bulletRect = Rect(bullet->getPositionX()+bullet->getParent()->getPositionX() - bullet->getContentSize().width / 2,
+        bullet->getBoundingBox();
+		auto  bulletRect = Rect(bullet->getPositionX() +bullet->getParent()->getPositionX() - bullet->getContentSize().width / 2,
                                 bullet->getPositionY() +bullet->getParent()->getPositionY() - bullet->getContentSize().height / 2,
                                 bullet->getContentSize().width,
                                 bullet->getContentSize().height );
@@ -154,7 +283,7 @@ void PlayLayer::update(float dt)
 		for (int j = 0; j < enemyVector.size(); j++)
 		{
 			auto enemy = enemyVector.at(j);
-			auto enemyRect = enemy->sprite->boundingBox();
+			auto enemyRect = enemy->sprite->getBoundingBox();
             
 			if (bulletRect.intersectsRect(enemyRect))
 			{
@@ -176,6 +305,7 @@ void PlayLayer::update(float dt)
                     enemyNeedToDelete.pushBack(enemy);
                 }
                 bulletNeedToDelete.pushBack( bullet);
+				break;
 			}
 		}
 		for (EnemyBase* enemyTemp : enemyNeedToDelete)

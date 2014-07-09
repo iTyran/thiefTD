@@ -28,6 +28,9 @@ public:
     void checkNearestEnemy();
     
     CC_SYNTHESIZE(int, scope, Scope);  // 塔的视线范围
+    CC_SYNTHESIZE(int, lethality, Lethality);   // 杀伤力
+    CC_SYNTHESIZE(int, towerValue, TowerValue);  //
+    CC_SYNTHESIZE(float, rate, Rate);  //
     
 protected:
     EnemyBase* nearestEnemy;    // 塔子视野内最近的敌人

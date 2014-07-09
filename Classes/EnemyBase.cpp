@@ -66,18 +66,6 @@ Animation* EnemyBase::createAnimation(std::string prefixName, int framesNum, flo
     return Animation::createWithSpriteFrames(animFrames, delay);
 }
 
-void EnemyBase::changeDirection(float dt)
-{
-    auto curr = currPoint();
-    
-    if(curr->getPositionX() > sprite->getPosition().x )
-    {
-        sprite->runAction( Animate::create(AnimationCache::getInstance()->getAnimation("runright"))) ;
-    }else{
-        sprite->runAction( Animate::create(AnimationCache::getInstance()->getAnimation("runleft"))  );
-    }
-}
-
 Node* EnemyBase::currPoint()
 {
     return this->pointsVector.at(pointCounter);
@@ -85,42 +73,32 @@ Node* EnemyBase::currPoint()
 
 Node* EnemyBase::nextPoint()
 {
-    int maxCount = this->pointsVector.size();
+    auto maxCount = int(pointsVector.size());
 	pointCounter++;
 	if (pointCounter < maxCount  ){
 		auto node =this->pointsVector.at(pointCounter);
         return node;
     }
-    else{
-        pointCounter = maxCount -1 ;
-    }
+	else{
+		pointCounter = maxCount - 1 ;
+	}
     return NULL;
 }
 
 void EnemyBase::runFllowPoint()
 {
-    auto point = currPoint();
-    sprite->setPosition(point->getPosition());
-    point = nextPoint();
+    auto temp = currPoint();
+    sprite->setPosition(temp->getPosition());
+    auto point = nextPoint();
     
     if( point!= NULL ){
-        sprite->runAction(Sequence::create(MoveTo::create(getRunSpeed(), point->getPosition())
+		auto duration =  temp->getPosition().getDistance(point->getPosition()) /getRunSpeed() ;
+        sprite->runAction(Sequence::create(MoveTo::create(duration, point->getPosition())
                                            , CallFuncN::create(CC_CALLBACK_0(EnemyBase::runFllowPoint, this))
                                            , NULL));
     }
 }
 
-void EnemyBase::enemyExpload()
-{
-    hpBgSprite->setVisible(false);
-    sprite->stopAllActions();
-    unschedule(schedule_selector(EnemyBase::changeDirection));
-    // 修整爆炸动画的位置，因为它比其他状态都要大
-    sprite->setAnchorPoint(Point(0.5f, 0.25f));
-    sprite->runAction(Sequence::create(Animate::create(AnimationCache::getInstance()->getAnimation("explode"))
-                                       ,CallFuncN::create(CC_CALLBACK_0(EnemyBase::removeFromParent, this))
-                                       , NULL));
-}
 
 void EnemyBase::setPointsVector(Vector<Node*> points)
 {

@@ -11,6 +11,9 @@
 
 TowerBase::TowerBase()
 :scope(0)
+,towerValue(0)
+,lethality(0)
+,rate(0)
 ,nearestEnemy(NULL)
 {
 }
@@ -21,6 +24,7 @@ bool TowerBase::init()
 	{
 		return false;
 	}
+    scheduleUpdate();
 	return true;
 }
 
@@ -28,30 +32,23 @@ bool TowerBase::init()
 void TowerBase::checkNearestEnemy()
 {
     GameManager *instance = GameManager::getInstance();
-    
     auto enemyVector = instance->enemyVector;
     
-	EnemyBase *enemy = NULL;
-	double maxDistant = Director::getInstance()->getWinSize().width;
-    auto enemyCount = enemyVector.size();
+	auto currMinDistant = this->scope;
     
-	for(int i = 0; i < enemyCount; i++)
+    EnemyBase *enemyTemp = NULL;
+	for(int i = 0; i < enemyVector.size(); i++)
 	{
-		enemy = enemyVector.at(i);
-		double curDistance = this->getPosition().getDistance(enemy->sprite->getPosition());
+		auto enemy = enemyVector.at(i);
+		double distance = this->getPosition().getDistance(enemy->sprite->getPosition());
         
-		if (curDistance < maxDistant) {
-			maxDistant = curDistance;
+		if (distance < currMinDistant) {
+			currMinDistant = distance;
+            enemyTemp = enemy;
 		}
 	}
-	if (maxDistant < this->scope){
-        nearestEnemy = enemy;
-    }
-    else{
-        nearestEnemy = NULL;
-    }
+    nearestEnemy = enemyTemp;
 }
-
 
 
 

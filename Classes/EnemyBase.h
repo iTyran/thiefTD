@@ -23,16 +23,12 @@ public:
     CREATE_FUNC(EnemyBase);
     
     Animation* createAnimation(std::string prefixName, int framesNum, float delay);
-    void changeDirection(float dt);
+    virtual void changeDirection(float dt){};
+    virtual void enemyExpload(){};
     Node* currPoint();
     Node* nextPoint();
     void runFllowPoint();
     void setPointsVector(Vector<Node*> points);
-    void enemyExpload();
-    
-	CC_SYNTHESIZE(float, hpPercentage, HpPercentage);
-    CC_SYNTHESIZE_READONLY(ProgressTimer*, hpBar, HpBar);
-    
 	void createAndSetHpBar();
 private:
     Vector<Node*> pointsVector;
@@ -45,6 +41,8 @@ protected:
     CC_SYNTHESIZE(float, runSpeed, RunSpeed);
     CC_SYNTHESIZE(int, maxHp, MaxHp);
     CC_SYNTHESIZE(int, currHp, CurrHp);
+	CC_SYNTHESIZE(float, hpPercentage, HpPercentage);
+    CC_SYNTHESIZE_READONLY(ProgressTimer*, hpBar, HpBar);
 	Sprite* sprite;
     Sprite* hpBgSprite;
 };

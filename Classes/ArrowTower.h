@@ -18,20 +18,13 @@ public:
     
     virtual bool init() ;
     CREATE_FUNC(ArrowTower);
-    
-    // 旋转后射击
+
     void rotateAndShoot(float dt);
-    // 射击，射击后移除超出屏幕的子弹
     void shoot();
-    // 移除超出屏幕的子弹
     void removeBullet(Node* pSender);
-    
-    // 箭塔的子弹
     Sprite* ArrowTowerBullet();
     
 private:
-    
-    // 旋转的箭
     Sprite* rotateArrow;
     
 };
