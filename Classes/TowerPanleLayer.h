@@ -18,7 +18,7 @@ USING_NS_CC;
 typedef enum
 {
     ARROW_TOWER = 0,
-    DECELERATE_TOWER = 1,
+    ATTACK_TOWER = 1,
 	MULTIDIR_TOWER,
 	ANOTHER
 } TowerType;

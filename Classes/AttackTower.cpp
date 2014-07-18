@@ -1,15 +1,15 @@
 //
-//  DecelerateTower.cpp
+//  AttackTower.cpp
 //  thiefTD
 //
 //  Created by cocos2d-x on 14-5-7.
 //
 //
 
-#include "DecelerateTower.h"
+#include "AttackTower.h"
 #include "GameManager.h"
 
-bool DecelerateTower::init()
+bool AttackTower::init()
 {
     if (!TowerBase::init())
 	{
@@ -17,28 +17,28 @@ bool DecelerateTower::init()
 	}
     
     setScope(90);
-    setTowerValue(200);
+	setTowerValue(200);
     setLethality(1);
     setRate(2);
-    tower= Sprite::createWithSpriteFrameName("mftower.png");
-    addChild(tower);
+    tower= Sprite::createWithSpriteFrameName("attackTower.png");
+    this->addChild(tower);
     
-    schedule(schedule_selector(DecelerateTower::shoot), 0.8f);
+    schedule(schedule_selector(AttackTower::shoot), 0.8f);
 	return true;
 }
 
 
-Sprite* DecelerateTower::DecelerateTowerBullet()
+Sprite* AttackTower::AttackTowerBullet()
 {
     Sprite* bullet = Sprite::createWithSpriteFrameName("bullet1.png");
     bullet->setPosition(0, tower->getContentSize().height /4 );
-    addChild(bullet);
+	//bullet->setTag(DECELERATE_BULLET);
+    this->addChild(bullet);
     
     return bullet;
 }
 
-
-void DecelerateTower::shoot(float dt)
+void AttackTower::shoot(float dt)
 {
     GameManager *instance = GameManager::getInstance();
     auto bulletVector = instance->bulletVector;
@@ -46,7 +46,7 @@ void DecelerateTower::shoot(float dt)
     checkNearestEnemy();
     if(nearestEnemy!=NULL && nearestEnemy->getCurrHp() > 0 )
     {
-        auto currBullet = DecelerateTowerBullet();
+        auto currBullet = AttackTowerBullet();
         instance->bulletVector.pushBack(currBullet);
         
         auto moveDuration = getRate();
@@ -58,13 +58,13 @@ void DecelerateTower::shoot(float dt)
 		Point offscreenPoint = (currBullet->getPosition() - overshotVector);
         
 		currBullet->runAction(Sequence::create(MoveTo::create(moveDuration, offscreenPoint),
-                                               CallFuncN::create(CC_CALLBACK_1(DecelerateTower::removeBullet, this)),
+                                               CallFuncN::create(CC_CALLBACK_1(AttackTower::removeBullet, this)),
                                                NULL));
         currBullet = NULL;
     }
 }
 
-void DecelerateTower::removeBullet(Node* pSender)
+void AttackTower::removeBullet(Node* pSender)
 {
     GameManager *instance = GameManager::getInstance();
     

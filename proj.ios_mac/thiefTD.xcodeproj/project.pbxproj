@@ -61,12 +61,12 @@
 		D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620D132DFF430009C878 /* AVFoundation.framework */; };
 		D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620F132DFF4E0009C878 /* AudioToolbox.framework */; };
 		D6B0611B1803AB670077942B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B0611A1803AB670077942B /* CoreMotion.framework */; };
-		FA1EFB27191A3D710012C3CC /* DecelerateTower.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA1EFB25191A3D710012C3CC /* DecelerateTower.cpp */; };
 		FA45D25C18F7C953004655EB /* PlayLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA45D25A18F7C953004655EB /* PlayLayer.cpp */; };
 		FA45D26518F7E504004655EB /* EnemyBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA45D26318F7E504004655EB /* EnemyBase.cpp */; };
 		FAA0339018FFDD8E00DE62FC /* height_864 in Resources */ = {isa = PBXBuildFile; fileRef = FAA0338F18FFDD8E00DE62FC /* height_864 */; };
 		FAA0339118FFDD8E00DE62FC /* height_864 in Resources */ = {isa = PBXBuildFile; fileRef = FAA0338F18FFDD8E00DE62FC /* height_864 */; };
 		FAA07E5919108D8D00B7B479 /* GameManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAA07E5719108D8D00B7B479 /* GameManager.cpp */; };
+		FAA4D90F19765B4300CD146F /* AttackTower.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAA4D90D19765B4300CD146F /* AttackTower.cpp */; };
 		FAAEA3991905FFF5007EE78D /* TowerBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAAEA3971905FFF5007EE78D /* TowerBase.cpp */; };
 		FAD04760190E1B30002AF20B /* TowerPanleLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAD0475E190E1B30002AF20B /* TowerPanleLayer.cpp */; };
 		FAD04763190E395C002AF20B /* Thief.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAD04761190E395C002AF20B /* Thief.cpp */; };
@@ -265,8 +265,6 @@
 		D44C620D132DFF430009C878 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D44C620F132DFF4E0009C878 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D6B0611A1803AB670077942B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
-		FA1EFB25191A3D710012C3CC /* DecelerateTower.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DecelerateTower.cpp; path = ../Classes/DecelerateTower.cpp; sourceTree = "<group>"; };
-		FA1EFB26191A3D710012C3CC /* DecelerateTower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DecelerateTower.h; path = ../Classes/DecelerateTower.h; sourceTree = "<group>"; };
 		FA45D25A18F7C953004655EB /* PlayLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PlayLayer.cpp; sourceTree = "<group>"; };
 		FA45D25B18F7C953004655EB /* PlayLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayLayer.h; sourceTree = "<group>"; };
 		FA45D26318F7E504004655EB /* EnemyBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EnemyBase.cpp; sourceTree = "<group>"; };
@@ -274,6 +272,8 @@
 		FAA0338F18FFDD8E00DE62FC /* height_864 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = height_864; sourceTree = "<group>"; };
 		FAA07E5719108D8D00B7B479 /* GameManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameManager.cpp; path = ../Classes/GameManager.cpp; sourceTree = "<group>"; };
 		FAA07E5819108D8D00B7B479 /* GameManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameManager.h; path = ../Classes/GameManager.h; sourceTree = "<group>"; };
+		FAA4D90D19765B4300CD146F /* AttackTower.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AttackTower.cpp; path = ../Classes/AttackTower.cpp; sourceTree = "<group>"; };
+		FAA4D90E19765B4300CD146F /* AttackTower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AttackTower.h; path = ../Classes/AttackTower.h; sourceTree = "<group>"; };
 		FAAEA3971905FFF5007EE78D /* TowerBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TowerBase.cpp; path = ../Classes/TowerBase.cpp; sourceTree = "<group>"; };
 		FAAEA3981905FFF5007EE78D /* TowerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TowerBase.h; path = ../Classes/TowerBase.h; sourceTree = "<group>"; };
 		FAD0475E190E1B30002AF20B /* TowerPanleLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TowerPanleLayer.cpp; path = ../Classes/TowerPanleLayer.cpp; sourceTree = "<group>"; };
@@ -353,6 +353,8 @@
 		15AA9C4015B7EC450033D6C2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				FAA4D90D19765B4300CD146F /* AttackTower.cpp */,
+				FAA4D90E19765B4300CD146F /* AttackTower.h */,
 				FAD2EE40196AAB0A00F6FBF0 /* MultiDirTower.cpp */,
 				FAD2EE41196AAB0A00F6FBF0 /* MultiDirTower.h */,
 				FAA07E5719108D8D00B7B479 /* GameManager.cpp */,
@@ -371,8 +373,6 @@
 				FAD04762190E395C002AF20B /* Thief.h */,
 				FAD04764190E3B37002AF20B /* ArrowTower.cpp */,
 				FAD04765190E3B37002AF20B /* ArrowTower.h */,
-				FA1EFB25191A3D710012C3CC /* DecelerateTower.cpp */,
-				FA1EFB26191A3D710012C3CC /* DecelerateTower.h */,
 			);
 			name = Classes;
 			path = ../classes;
@@ -697,11 +697,11 @@
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				FAD04760190E1B30002AF20B /* TowerPanleLayer.cpp in Sources */,
-				FA1EFB27191A3D710012C3CC /* DecelerateTower.cpp in Sources */,
 				FAAEA3991905FFF5007EE78D /* TowerBase.cpp in Sources */,
 				FAD2EE42196AAB0A00F6FBF0 /* MultiDirTower.cpp in Sources */,
 				FA45D26518F7E504004655EB /* EnemyBase.cpp in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
+				FAA4D90F19765B4300CD146F /* AttackTower.cpp in Sources */,
 				FAD04763190E395C002AF20B /* Thief.cpp in Sources */,
 				FAA07E5919108D8D00B7B479 /* GameManager.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,

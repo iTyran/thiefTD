@@ -34,7 +34,6 @@ public:
     
 protected:
     EnemyBase* nearestEnemy;    // 塔子视野内最近的敌人
-    
 };
 
 

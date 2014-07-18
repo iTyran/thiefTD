@@ -13,7 +13,7 @@
 #include "cocos2d.h"
 #include "Thief.h"
 #include "ArrowTower.h"
-#include "DecelerateTower.h"
+#include "AttackTower.h"
 #include "MultiDirTower.h"
 #include "TowerPanleLayer.h"
 #include "GameManager.h"
@@ -51,7 +51,7 @@ private:
 	void checkAndAddTowerPanle(Point position);
 	void CollisionDetection();
     void enemyIntoHouse();
-
+    
 	Point towerPos;
     void initPointsVector(float offX);
     void addEnemy();

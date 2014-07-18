@@ -25,7 +25,6 @@ public:
     Sprite* MultiDirTowerBullet();
     void createBullet6(float dt);
 private:
-    Sprite* rotateArrow;
     Sprite* tower;
     
 };

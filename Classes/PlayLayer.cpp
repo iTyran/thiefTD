@@ -104,28 +104,27 @@ void PlayLayer::initPointsVector(float offX)
 	runOfPoint = NULL;
 }
 
+
 void PlayLayer::addEnemy()
 {
     GameManager *instance = GameManager::getInstance();
     
-    EnemyBase* enemy = Thief::createThief(pointsVector);
+    EnemyBase* enemy = Thief::createThief(pointsVector,10);
 	this->addChild(enemy, -1);
     instance->enemyVector.pushBack(enemy);
-    
 }
-
 
 bool PlayLayer::onTouchBegan(Touch *touch, Event *event)
 {
-	this->removeChild(chooseTowerpanle);
-	chooseTowerpanle = NULL;
+    if(chooseTowerpanle != NULL)
+    {
+        this->removeChild(chooseTowerpanle);
+    }
 
     auto location = touch->getLocation();
-    
     checkAndAddTowerPanle(location);
 	return true;
 }
-
 
 void PlayLayer::addTowerChoosePanle(Point point)
 {
@@ -152,21 +151,21 @@ void PlayLayer::checkAndAddTowerPanle(Point position)
 {
 	Point towerCoord = convertTotileCoord(position);
 	Point matrixCoord = convertToMatrixCoord(position);
-	int MatrixIndex = static_cast<int>( matrixCoord.y * MAP_WIDTH + matrixCoord.x );
     
 	int gid = bgLayer->getTileGIDAt(towerCoord);
 	auto tileTemp = map->getPropertiesForGID(gid).asValueMap();
-	auto tileWidth = map->getContentSize().width /	map->getMapSize().width;
-	auto tileHeight = map->getContentSize().height / map->getMapSize().height;
+    int MatrixIndex = static_cast<int>( matrixCoord.y * MAP_WIDTH + matrixCoord.x );
+
 	int TouchVaule;
-	if (tileTemp.size() == 0)
+	if (tileTemp.empty())
 	{
 		TouchVaule = 0;
-	}
-	else
+	}else
 	{
 		TouchVaule = tileTemp.at("canTouch").asInt();
 	}
+    auto tileWidth = map->getContentSize().width / map->getMapSize().width;
+	auto tileHeight = map->getContentSize().height / map->getMapSize().height;
 	towerPos = Point((towerCoord.x * tileWidth) + tileWidth/2 -offX, map->getContentSize().height - (towerCoord.y * tileHeight) - tileHeight/2);
     
     if (1 == TouchVaule && towerMatrix[MatrixIndex]==NULL)
@@ -186,71 +185,61 @@ void PlayLayer::checkAndAddTowerPanle(Point position)
 
 void PlayLayer::addTower()
 {
-    if(chooseTowerpanle != NULL )
+    if(chooseTowerpanle != NULL  )
 	{
 		auto type = chooseTowerpanle->getChooseTowerType();
+        if(type == TowerType::ANOTHER)
+        {
+            return;
+        }
 		Point matrixCoord = convertToMatrixCoord(towerPos);
 		int MatrixIndex = static_cast<int>( matrixCoord.y * MAP_WIDTH + matrixCoord.x );
 		bool noMoneyTips = false;
+        TowerBase* tower = NULL;
 		if( type == TowerType::ARROW_TOWER )
         {
 			if( money >= 200 )
 			{
-				TowerBase* tower = ArrowTower::create();
-				tower->setPosition(towerPos);
-				tower->runAction(Sequence::create(FadeIn::create(1.0f),NULL));
-				this->addChild(tower);
-				towerMatrix[MatrixIndex] =  tower;
+				tower = ArrowTower::create();
 				money -= 200;
-			}else{
-				noMoneyTips = true;
 			}
-			type =  TowerType::ANOTHER;
-			chooseTowerpanle->setChooseTowerType(type);
-            this->removeChild(chooseTowerpanle);
-            chooseTowerpanle = NULL;
+            else
+            noMoneyTips = true;
 		}
-        else if( type == TowerType::DECELERATE_TOWER )
+        else if( type == TowerType::ATTACK_TOWER )
         {
 			if( money >= 150 )
 			{
-				DecelerateTower* tower = DecelerateTower::create();
-				tower->setPosition(towerPos);
-				tower->runAction(Sequence::create(FadeIn::create(1.0f),NULL));
-				this->addChild(tower);
-				towerMatrix[MatrixIndex] =  tower;
+				tower = AttackTower::create();
 				money -= 150;
-			}else{
-				noMoneyTips = true;
 			}
-            
-			type =  TowerType::ANOTHER;
-			chooseTowerpanle->setChooseTowerType(type);
-            this->removeChild(chooseTowerpanle);
-            chooseTowerpanle = NULL;
+            else
+            noMoneyTips = true;
 		}
 		else if( type == TowerType::MULTIDIR_TOWER )
         {
-			if( money >= 600 )
+			if( money >= 200 )
 			{
-				MultiDirTower* tower = MultiDirTower::create();
-				tower->setPosition(towerPos);
-				tower->runAction(Sequence::create(FadeIn::create(1.0f),NULL));
-				this->addChild(tower);
-				towerMatrix[MatrixIndex] =  tower;
-				money -= 600;
-			}else{
-				noMoneyTips = true;
-			}
-			type =  TowerType::ANOTHER;
-			chooseTowerpanle->setChooseTowerType(type);
-            this->removeChild(chooseTowerpanle);
-            chooseTowerpanle = NULL;
+				tower = MultiDirTower::create();
+				money -= 200;
+			}else
+            noMoneyTips = true;
 		}
+        if(tower != NULL)
+        {
+            tower->setPosition(towerPos);
+            tower->runAction(Sequence::create(FadeIn::create(1.0f),NULL));
+            this->addChild(tower);
+            towerMatrix[MatrixIndex] =  tower;
+        }
+        type =  TowerType::ANOTHER;
+        chooseTowerpanle->setChooseTowerType(type);
+        this->removeChild(chooseTowerpanle);
+        chooseTowerpanle = NULL;
         
 		if( noMoneyTips == true )
 		{
-			auto tips = Sprite::createWithSpriteFrameName("nomoney_mark.png");
+            auto tips = Sprite::createWithSpriteFrameName("nomoney_mark.png");
 			tips->setPosition(towerPos);
 			this->addChild(tips);
 			tips->runAction(Sequence::create(DelayTime::create(0.5f),
@@ -260,16 +249,17 @@ void PlayLayer::addTower()
 	}
 }
 
-void PlayLayer::update(float dt)
+void PlayLayer::CollisionDetection()
 {
     GameManager *instance = GameManager::getInstance();
     
     auto bulletVector = instance->bulletVector;
     auto enemyVector = instance->enemyVector;
-    auto towerVector = instance->towerVector;
     
-    addTower();
-    Vector<EnemyBase*> enemyNeedToDelete;
+	if(bulletVector.empty() || enemyVector.empty() ){
+		return;
+	}
+	Vector<EnemyBase*> enemyNeedToDelete;
 	Vector<Sprite*> bulletNeedToDelete;
     for (int i = 0; i < bulletVector.size(); i++)
 	{
@@ -322,6 +312,13 @@ void PlayLayer::update(float dt)
         bulletTemp->removeFromParent();
 	}
 	bulletNeedToDelete.clear();
+}
+
+void PlayLayer::update(float dt)
+{
+    
+    addTower();
+    CollisionDetection();
 }
 
 
