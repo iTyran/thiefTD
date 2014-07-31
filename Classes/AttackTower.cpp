@@ -32,7 +32,6 @@ Sprite* AttackTower::AttackTowerBullet()
 {
     Sprite* bullet = Sprite::createWithSpriteFrameName("bullet1.png");
     bullet->setPosition(0, tower->getContentSize().height /4 );
-	//bullet->setTag(DECELERATE_BULLET);
     this->addChild(bullet);
     
     return bullet;

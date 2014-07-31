@@ -31,7 +31,7 @@ bool MultiDirTower::init()
 
 Sprite* MultiDirTower::MultiDirTowerBullet()
 {
-    Sprite* bullet = Sprite::createWithSpriteFrameName("bullet1.png");
+    Sprite* bullet = Sprite::createWithSpriteFrameName("bullet.png");
     bullet->setPosition(0, tower->getContentSize().height /4 );
     this->addChild(bullet);
     

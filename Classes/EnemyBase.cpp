@@ -21,11 +21,13 @@ EnemyBase::EnemyBase()
 ,currHp(0)
 ,hpPercentage(100)
 ,hpBar(NULL)
+,enemySuccessful(false)
 {
 }
 
 EnemyBase::~EnemyBase()
-{}
+{
+}
 
 bool EnemyBase::init()
 {
@@ -68,19 +70,23 @@ Animation* EnemyBase::createAnimation(std::string prefixName, int framesNum, flo
 
 Node* EnemyBase::currPoint()
 {
-    return this->pointsVector.at(pointCounter);
+	if(pointsVector.size() > 0){
+		return this->pointsVector.at(pointCounter);
+	}else{
+		return NULL;
+	}
 }
 
 Node* EnemyBase::nextPoint()
 {
-    auto maxCount = int(pointsVector.size());
+    int maxCount = this->pointsVector.size();
 	pointCounter++;
 	if (pointCounter < maxCount  ){
 		auto node =this->pointsVector.at(pointCounter);
         return node;
     }
 	else{
-		pointCounter = maxCount - 1 ;
+        setEnemySuccessful(true);
 	}
     return NULL;
 }
@@ -104,6 +110,4 @@ void EnemyBase::setPointsVector(Vector<Node*> points)
 {
     this->pointsVector = points;
 }
-
-
 

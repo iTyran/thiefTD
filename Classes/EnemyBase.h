@@ -39,10 +39,12 @@ protected:
     Animation *animationLeft;
     Animation *animationExplode;
     CC_SYNTHESIZE(float, runSpeed, RunSpeed);
-    CC_SYNTHESIZE(int, maxHp, MaxHp);
-    CC_SYNTHESIZE(int, currHp, CurrHp);
+    CC_SYNTHESIZE(float, maxHp, MaxHp);
+    CC_SYNTHESIZE(float, vaule, Vaule);
+    CC_SYNTHESIZE(float, currHp, CurrHp);
 	CC_SYNTHESIZE(float, hpPercentage, HpPercentage);
     CC_SYNTHESIZE_READONLY(ProgressTimer*, hpBar, HpBar);
+    CC_SYNTHESIZE(bool, enemySuccessful, EnemySuccessful);
 	Sprite* sprite;
     Sprite* hpBgSprite;
 };

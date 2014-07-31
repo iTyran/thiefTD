@@ -19,7 +19,6 @@ public:
     virtual bool init() ;
     CREATE_FUNC(MultiDirTower);
     
-    //void rotateAndShoot(float dt);
     void shoot(float dt);
     void removeBullet(Node* pSender);
     Sprite* MultiDirTowerBullet();

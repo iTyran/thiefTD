@@ -16,6 +16,7 @@ bool Thief::init()
 		return false;
 	}
     setRunSpeed(25);
+    setVaule(10);
     sprite = Sprite::createWithSpriteFrameName("enemyRight1_1.png");
     this->addChild(sprite);
     animationRight = createAnimation("enemyRight1", 4, 0.1f);
@@ -84,6 +85,7 @@ bool Pirate::init()
 		return false;
 	}
     setRunSpeed(50);
+    setVaule(20);
     sprite = Sprite::createWithSpriteFrameName("enemyRight2_1.png");
     this->addChild(sprite);
     animationRight = createAnimation("enemyRight2", 4, 0.1f);
@@ -151,6 +153,7 @@ bool Bandit::init()
 		return false;
 	}
     setRunSpeed(70);
+    setVaule(30);
     sprite = Sprite::createWithSpriteFrameName("enemyRight3_1.png");
     this->addChild(sprite);
     animationRight = createAnimation("enemyRight3", 4, 0.1f);

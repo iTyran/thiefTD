@@ -32,6 +32,11 @@ public:
     virtual void update(float dt) override;
     virtual bool onTouchBegan(Touch *touch, Event *event) override;
     
+    GroupEnemy* currentGroup();
+	GroupEnemy* nextGroup();
+	void addGroupEnemy();
+	void logic(float dt);
+	void initLabelText();
 private:
     SpriteBatchNode *spriteSheet;
     TMXTiledMap* map;
@@ -39,13 +44,24 @@ private:
     TMXObjectGroup* objects;
     Vector<Node*> pointsVector;
     
-    GameManager* instance;
+	GameManager* instance;
     float offX;
-    int money;
+    
+	int groupCounter;
+	int money;
+    
+    Label* moneyLabel;
+	Label* groupLabel;
+	Label* groupTotalLabel;
+	Layer* toolLayer;
+	void initToolLayer();
+	CC_SYNTHESIZE(float, playHpPercentage, PlayHpPercentage);
+	CC_SYNTHESIZE_READONLY(ProgressTimer*, playHpBar, PlayHpBar);
+	bool isSuccessful;
     
     bool isTouchEnable;
-    TowerPanleLayer* chooseTowerpanle;
-    void addTowerChoosePanle(Point position);
+    TowerPanleLayer* chooseTowerpanel;
+    void addTowerChoosePanel(Point position);
     Point convertTotileCoord(Point position);
 	Point convertToMatrixCoord(Point position);
 	void checkAndAddTowerPanle(Point position);
@@ -56,7 +72,6 @@ private:
     void initPointsVector(float offX);
     void addEnemy();
     void addTower();
-    
     TowerBase **towerMatrix;
 };
 
