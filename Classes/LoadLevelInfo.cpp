@@ -1,8 +1,13 @@
-
+//
+//  LoadLevelInfo.cpp
+//  thiefTD
+//
+//  Created by cocos2d-x on 14-5-12.
+//
+//
 
 #include "LoadLevelInfo.h"
 #include "GameManager.h"
-
 
 LoadLevelinfo::~LoadLevelinfo()
 {

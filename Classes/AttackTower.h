@@ -11,7 +11,6 @@
 
 #include "TowerBase.h"
 
-
 class AttackTower:public TowerBase
 {
 public:

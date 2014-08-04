@@ -10,7 +10,14 @@
 
 #include "PlayLayer.h"
 #include "GameManager.h"
-#include "LoadLevelInfo.h"
+#include "SuccessfulScene.h"
+#include "FailedScene.h"
+#include "LevelScene.h"
+#include "SimpleAudioEngine.h"
+#include "cocos-ext.h"
+
+USING_NS_CC_EXT;
+using namespace CocosDenshion;
 
 PlayLayer::PlayLayer()
 :isTouchEnable(false)
@@ -52,19 +59,13 @@ bool PlayLayer::init()
     if (!Layer::init()) {
         return false;
     }
-    auto info = LoadLevelinfo::createLoadLevelinfo("levelInfo_1_0.plist");
-    info->readLevelInfo();
     
-    instance = GameManager::getInstance();
     Size winSize = Director::getInstance()->getWinSize();
+    instance = GameManager::getInstance();
     
-    auto gameBg = Sprite::create(instance->getCurBgName());
+	auto gameBg = Sprite::create(instance->getCurBgName());
 	gameBg->setPosition (Point(winSize.width / 2 ,winSize.height / 2));
 	addChild(gameBg, -20);
-    
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Play.plist");
-    spriteSheet = SpriteBatchNode::create("Play.png");
-    addChild(spriteSheet);
     
     map = TMXTiledMap::create(instance->getCurMapName());
     bgLayer = map->getLayer("bg");
@@ -164,6 +165,23 @@ void PlayLayer::initToolLayer()
     auto groupTotalText = std::to_string(groupTotal);
 	groupTotalLabel->setString(groupTotalText);
     spritetool->addChild(groupTotalLabel);
+    
+    // back
+	Sprite *backItem1 = CCSprite::createWithSpriteFrameName("playbutton1.png");
+	Sprite *backItem2 = CCSprite::createWithSpriteFrameName("playbutton2.png");
+	MenuItemSprite *pPauseItem = MenuItemSprite::create(backItem1, backItem2, CC_CALLBACK_1(PlayLayer::menuBackCallback, this));
+	pPauseItem->setPosition(Point(spritetool->getContentSize().width - backItem1->getContentSize().width/2, spritetool->getContentSize().height / 2));
+	pPauseItem->setAnchorPoint(Point(0, 0.4f));
+	Menu* pMenu = Menu::create(pPauseItem, NULL);
+	pMenu->setPosition(Point::ZERO);
+	spritetool->addChild(pMenu);
+}
+
+void PlayLayer::menuBackCallback(Ref* pSender)
+{
+	SimpleAudioEngine::getInstance()->playEffect(FileUtils::getInstance()->fullPathForFilename("sound/button.wav").c_str(), false);
+    instance->clear();
+	Director::getInstance()->replaceScene(CCTransitionFade::create(0.5, LevelScene::create()));
 }
 
 GroupEnemy* PlayLayer::currentGroup()
@@ -219,15 +237,18 @@ void PlayLayer::addEnemy()
 	EnemyBase* enemy = NULL;
 	
 	if(groupEnemy->getType1Total() > 0){
+        SimpleAudioEngine::getInstance()->playEffect(FileUtils::getInstance()->fullPathForFilename("sound/comeout.wav").c_str(), false);
 		enemy = Thief::createThief(pointsVector, groupEnemy->getType1Hp());
 		groupEnemy->setType1Total(groupEnemy->getType1Total() - 1);
 	}
 	else if(groupEnemy->getType2Total() > 0){
+        SimpleAudioEngine::getInstance()->playEffect(FileUtils::getInstance()->fullPathForFilename("sound/comeout.wav").c_str(), false);
 		enemy = Pirate::createPirate(pointsVector, groupEnemy->getType2Hp());
 		groupEnemy->setType2Total(groupEnemy->getType2Total() - 1);
 	}
 	else if(groupEnemy->getType3Total() > 0){
 		enemy = Bandit::createBandit(pointsVector, groupEnemy->getType3Hp());
+        SimpleAudioEngine::getInstance()->playEffect(FileUtils::getInstance()->fullPathForFilename("sound/comeout.wav").c_str(), false);
 		groupEnemy->setType3Total(groupEnemy->getType3Total() - 1);
 	}
     
@@ -312,6 +333,7 @@ void PlayLayer::checkAndAddTowerPanle(Point position)
 	}
 	else
 	{
+        SimpleAudioEngine::getInstance()->playEffect(FileUtils::getInstance()->fullPathForFilename("sound/tip.wav").c_str(), false);
 		auto tips = Sprite::createWithSpriteFrameName("no.png");
 		tips->setPosition(towerPos);
 		this->addChild(tips);
@@ -380,6 +402,7 @@ void PlayLayer::addTower()
         
 		if( noMoneyTips == true )
 		{
+            SimpleAudioEngine::getInstance()->playEffect(FileUtils::getInstance()->fullPathForFilename("sound/tip.wav").c_str(), false);
 			auto tips = Sprite::createWithSpriteFrameName("nomoney_mark.png");
 			tips->setPosition(towerPos);
 			this->addChild(tips);
@@ -480,14 +503,7 @@ void PlayLayer::enemyIntoHouse()
             }
             else{
                 instance->clear();
-                // 应该跳转到失败界面
-                this->removeAllChildren();
-                // unscheduleAllSelectors();
-                Size winSize = Director::getInstance()->getWinSize();
-                auto putOutLabel = Label::createWithBMFont("fonts/boundsTestFont.fnt", "Game Over");
-                putOutLabel->setPosition(Point(winSize.width / 2, winSize.height / 2 ));
-                putOutLabel->setScale(4);
-                this->addChild(putOutLabel);
+                Director::getInstance()->replaceScene(TransitionFade::create(0.1f, FailedScene::create()));
             }
         }
     }
@@ -511,15 +527,15 @@ void PlayLayer::update(float dt)
         if( star > UserDefault::getInstance()->getIntegerForKey(instance->getCurrLevelFile().c_str()))
 		{
 			UserDefault::getInstance()->setIntegerForKey(instance->getCurrLevelFile().c_str(), star);
+			auto levelNum = UserDefault::getInstance()->getIntegerForKey("levelNum") + 1;
+			UserDefault::getInstance()->setIntegerForKey("levelNum", levelNum);
 		}
         
+		auto nextlevel = instance->getNextLevelFile();
+		UserDefault::getInstance()->setStringForKey("nextLevelFile", nextlevel);
+        
 		instance->clear();
-        // 应该跳转到成功界面
-        Size winSize = Director::getInstance()->getWinSize();
-        auto putOutLabel = Label::createWithBMFont("fonts/boundsTestFont.fnt", "Congratulations!");
-        putOutLabel->setPosition(Point(winSize.width / 2, winSize.height / 2 ));
-        putOutLabel->setScale(4);
-        this->addChild(putOutLabel);
+        Director::getInstance()->replaceScene(TransitionFade::create(0.1f, SuccessfulScene::create()));
 	}
 }
 

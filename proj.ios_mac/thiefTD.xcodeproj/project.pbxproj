@@ -67,6 +67,14 @@
 		FAA0339118FFDD8E00DE62FC /* height_864 in Resources */ = {isa = PBXBuildFile; fileRef = FAA0338F18FFDD8E00DE62FC /* height_864 */; };
 		FAA07E5919108D8D00B7B479 /* GameManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAA07E5719108D8D00B7B479 /* GameManager.cpp */; };
 		FAA4D90F19765B4300CD146F /* AttackTower.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAA4D90D19765B4300CD146F /* AttackTower.cpp */; };
+		FAA5E4C21989D7FF00B98E39 /* FailedScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAA5E4AE1989D7FF00B98E39 /* FailedScene.cpp */; };
+		FAA5E4C31989D7FF00B98E39 /* LevelInfoScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAA5E4B01989D7FF00B98E39 /* LevelInfoScene.cpp */; };
+		FAA5E4C41989D7FF00B98E39 /* LevelLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAA5E4B21989D7FF00B98E39 /* LevelLayer.cpp */; };
+		FAA5E4C51989D7FF00B98E39 /* LevelScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAA5E4B41989D7FF00B98E39 /* LevelScene.cpp */; };
+		FAA5E4C61989D7FF00B98E39 /* LevelSelectPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAA5E4B61989D7FF00B98E39 /* LevelSelectPage.cpp */; };
+		FAA5E4C91989D7FF00B98E39 /* LoadingResScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAA5E4BC1989D7FF00B98E39 /* LoadingResScene.cpp */; };
+		FAA5E4CA1989D7FF00B98E39 /* SuccessfulScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAA5E4BE1989D7FF00B98E39 /* SuccessfulScene.cpp */; };
+		FAA5E4CB1989D7FF00B98E39 /* UIScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAA5E4C01989D7FF00B98E39 /* UIScene.cpp */; };
 		FAA8C746197D213D008E4AAA /* GroupEnemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAA8C742197D213D008E4AAA /* GroupEnemy.cpp */; };
 		FAA8C747197D213D008E4AAA /* LoadLevelInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAA8C744197D213D008E4AAA /* LoadLevelInfo.cpp */; };
 		FAAEA3991905FFF5007EE78D /* TowerBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAAEA3971905FFF5007EE78D /* TowerBase.cpp */; };
@@ -276,6 +284,22 @@
 		FAA07E5819108D8D00B7B479 /* GameManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameManager.h; path = ../Classes/GameManager.h; sourceTree = "<group>"; };
 		FAA4D90D19765B4300CD146F /* AttackTower.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AttackTower.cpp; path = ../Classes/AttackTower.cpp; sourceTree = "<group>"; };
 		FAA4D90E19765B4300CD146F /* AttackTower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AttackTower.h; path = ../Classes/AttackTower.h; sourceTree = "<group>"; };
+		FAA5E4AE1989D7FF00B98E39 /* FailedScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FailedScene.cpp; path = ../Classes/FailedScene.cpp; sourceTree = "<group>"; };
+		FAA5E4AF1989D7FF00B98E39 /* FailedScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FailedScene.h; path = ../Classes/FailedScene.h; sourceTree = "<group>"; };
+		FAA5E4B01989D7FF00B98E39 /* LevelInfoScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LevelInfoScene.cpp; path = ../Classes/LevelInfoScene.cpp; sourceTree = "<group>"; };
+		FAA5E4B11989D7FF00B98E39 /* LevelInfoScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LevelInfoScene.h; path = ../Classes/LevelInfoScene.h; sourceTree = "<group>"; };
+		FAA5E4B21989D7FF00B98E39 /* LevelLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LevelLayer.cpp; path = ../Classes/LevelLayer.cpp; sourceTree = "<group>"; };
+		FAA5E4B31989D7FF00B98E39 /* LevelLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LevelLayer.h; path = ../Classes/LevelLayer.h; sourceTree = "<group>"; };
+		FAA5E4B41989D7FF00B98E39 /* LevelScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LevelScene.cpp; path = ../Classes/LevelScene.cpp; sourceTree = "<group>"; };
+		FAA5E4B51989D7FF00B98E39 /* LevelScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LevelScene.h; path = ../Classes/LevelScene.h; sourceTree = "<group>"; };
+		FAA5E4B61989D7FF00B98E39 /* LevelSelectPage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LevelSelectPage.cpp; path = ../Classes/LevelSelectPage.cpp; sourceTree = "<group>"; };
+		FAA5E4B71989D7FF00B98E39 /* LevelSelectPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LevelSelectPage.h; path = ../Classes/LevelSelectPage.h; sourceTree = "<group>"; };
+		FAA5E4BC1989D7FF00B98E39 /* LoadingResScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LoadingResScene.cpp; path = ../Classes/LoadingResScene.cpp; sourceTree = "<group>"; };
+		FAA5E4BD1989D7FF00B98E39 /* LoadingResScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoadingResScene.h; path = ../Classes/LoadingResScene.h; sourceTree = "<group>"; };
+		FAA5E4BE1989D7FF00B98E39 /* SuccessfulScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SuccessfulScene.cpp; path = ../Classes/SuccessfulScene.cpp; sourceTree = "<group>"; };
+		FAA5E4BF1989D7FF00B98E39 /* SuccessfulScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SuccessfulScene.h; path = ../Classes/SuccessfulScene.h; sourceTree = "<group>"; };
+		FAA5E4C01989D7FF00B98E39 /* UIScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UIScene.cpp; path = ../Classes/UIScene.cpp; sourceTree = "<group>"; };
+		FAA5E4C11989D7FF00B98E39 /* UIScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIScene.h; path = ../Classes/UIScene.h; sourceTree = "<group>"; };
 		FAA8C742197D213D008E4AAA /* GroupEnemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GroupEnemy.cpp; path = ../Classes/GroupEnemy.cpp; sourceTree = "<group>"; };
 		FAA8C743197D213D008E4AAA /* GroupEnemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GroupEnemy.h; path = ../Classes/GroupEnemy.h; sourceTree = "<group>"; };
 		FAA8C744197D213D008E4AAA /* LoadLevelInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LoadLevelInfo.cpp; path = ../Classes/LoadLevelInfo.cpp; sourceTree = "<group>"; };
@@ -359,6 +383,22 @@
 		15AA9C4015B7EC450033D6C2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				FAA5E4AE1989D7FF00B98E39 /* FailedScene.cpp */,
+				FAA5E4AF1989D7FF00B98E39 /* FailedScene.h */,
+				FAA5E4B01989D7FF00B98E39 /* LevelInfoScene.cpp */,
+				FAA5E4B11989D7FF00B98E39 /* LevelInfoScene.h */,
+				FAA5E4B21989D7FF00B98E39 /* LevelLayer.cpp */,
+				FAA5E4B31989D7FF00B98E39 /* LevelLayer.h */,
+				FAA5E4B41989D7FF00B98E39 /* LevelScene.cpp */,
+				FAA5E4B51989D7FF00B98E39 /* LevelScene.h */,
+				FAA5E4B61989D7FF00B98E39 /* LevelSelectPage.cpp */,
+				FAA5E4B71989D7FF00B98E39 /* LevelSelectPage.h */,
+				FAA5E4BC1989D7FF00B98E39 /* LoadingResScene.cpp */,
+				FAA5E4BD1989D7FF00B98E39 /* LoadingResScene.h */,
+				FAA5E4BE1989D7FF00B98E39 /* SuccessfulScene.cpp */,
+				FAA5E4BF1989D7FF00B98E39 /* SuccessfulScene.h */,
+				FAA5E4C01989D7FF00B98E39 /* UIScene.cpp */,
+				FAA5E4C11989D7FF00B98E39 /* UIScene.h */,
 				FAA8C742197D213D008E4AAA /* GroupEnemy.cpp */,
 				FAA8C743197D213D008E4AAA /* GroupEnemy.h */,
 				FAA8C744197D213D008E4AAA /* LoadLevelInfo.cpp */,
@@ -705,8 +745,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
+				FAA5E4C51989D7FF00B98E39 /* LevelScene.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				FAA8C746197D213D008E4AAA /* GroupEnemy.cpp in Sources */,
+				FAA5E4C61989D7FF00B98E39 /* LevelSelectPage.cpp in Sources */,
+				FAA5E4C21989D7FF00B98E39 /* FailedScene.cpp in Sources */,
+				FAA5E4C41989D7FF00B98E39 /* LevelLayer.cpp in Sources */,
 				FAD04760190E1B30002AF20B /* TowerPanleLayer.cpp in Sources */,
 				FAAEA3991905FFF5007EE78D /* TowerBase.cpp in Sources */,
 				FAD2EE42196AAB0A00F6FBF0 /* MultiDirTower.cpp in Sources */,
@@ -716,8 +760,12 @@
 				FAD04763190E395C002AF20B /* Thief.cpp in Sources */,
 				FAA07E5919108D8D00B7B479 /* GameManager.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
+				FAA5E4CB1989D7FF00B98E39 /* UIScene.cpp in Sources */,
+				FAA5E4C91989D7FF00B98E39 /* LoadingResScene.cpp in Sources */,
+				FAA5E4CA1989D7FF00B98E39 /* SuccessfulScene.cpp in Sources */,
 				FA45D25C18F7C953004655EB /* PlayLayer.cpp in Sources */,
 				FAD04766190E3B37002AF20B /* ArrowTower.cpp in Sources */,
+				FAA5E4C31989D7FF00B98E39 /* LevelInfoScene.cpp in Sources */,
 				FAA8C747197D213D008E4AAA /* LoadLevelInfo.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

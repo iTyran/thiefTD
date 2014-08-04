@@ -1,3 +1,11 @@
+//
+//  LoadLevelInfo.h
+//  thiefTD
+//
+//  Created by cocos2d-x on 14-5-12.
+//
+//
+
 #ifndef __thiefTD__LoadLevelInfo__
 #define __thiefTD__LoadLevelInfo__
 

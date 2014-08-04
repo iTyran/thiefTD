@@ -1,5 +1,5 @@
 #include "AppDelegate.h"
-#include "PlayLayer.h"
+#include "LoadingResScene.h"
 
 USING_NS_CC;
 
@@ -33,7 +33,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setContentScaleFactor(864.0f / 320.0f);
     
     // create a scene. it's an autorelease object
-    auto scene = PlayLayer::createScene();
+    auto scene = LoadingResScene::createScene();
     
     // run
     director->runWithScene(scene);
