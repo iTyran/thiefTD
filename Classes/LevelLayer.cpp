@@ -42,8 +42,7 @@ bool LevelLayer::init()
   
 void LevelLayer::goToCurrNode()
 {
-    MoveTo *moveTo = MoveTo::create(0.4f, Point::Point(-curPageNode * WINDOW_WIDTH, 0));
-    this->runAction(moveTo);
+    this->runAction(MoveTo::create(0.4f, Point::Point(-curPageNode * WINDOW_WIDTH, 0)));
 }
 
 void LevelLayer::addNode(Node *level)
@@ -57,31 +56,32 @@ void LevelLayer::addNode(Node *level)
     }
 }
 
-bool LevelLayer::onTouchBegan(Touch *pTouch, Event  *pEvent)
+bool LevelLayer::onTouchBegan(Touch *touch, Event  *event)
 {
-    touchDownPoint = Director::getInstance()->convertToGL(pTouch->getLocationInView());
+    touchDownPoint = touch->getLocation();
     touchCurPoint = touchDownPoint;
     return true;
 }
 
-void LevelLayer::onTouchMoved(Touch *pTouch, Event  *pEvent)
+void LevelLayer::onTouchMoved(Touch *touch, Event  *event)
 {
-    Point touchPoint = Director::getInstance()->convertToGL(pTouch->getLocationInView());
-    Point posPoint = Point::Point(getPositionX() + touchPoint.x - touchCurPoint.x, getPositionY());
-    auto dis= touchUpPoint.getDistance(touchDownPoint);
-    if (dis >= TOUCH_DELTA ) {
+    Point touchPoint = touch->getLocation();
+    auto currX = this->getPositionX() + touchPoint.x - touchCurPoint.x;
+    Point posPoint = Point::Point(currX, getPositionY());
+    auto dis= fabsf(touchPoint.x - touchCurPoint.x);
+    if (dis >= SHORTEST_SLIDE_LENGTH ) {
         setPosition(posPoint);
     }
     touchCurPoint = touchPoint;
 }
 
-void LevelLayer::onTouchEnded(Touch *pTouch, Event  *pEvent)
+void LevelLayer::onTouchEnded(Touch *touch, Event  *event)
 {
-    touchUpPoint = Director::getInstance()->convertToGL(pTouch->getLocationInView());
+    touchUpPoint = touch->getLocation();
     auto dis= touchUpPoint.getDistance(touchDownPoint);
     auto sprite1 =Sprite::createWithSpriteFrameName("page_mark1.png");
     auto width = sprite1->getContentSize().width;
-    if (dis >= TOUCH_DELTA )
+    if (dis >= SHORTEST_SLIDE_LENGTH )
     {
         int offset = getPositionX() - curPageNode * (-WINDOW_WIDTH);
         if (offset > width) {

@@ -35,6 +35,7 @@ bool LoadingResScene::init()
 	}
     progressBar = addProgress();
 	loadResources();
+    schedule(schedule_selector(LoadingResScene::logic));
 
 	return true;
 }
@@ -64,51 +65,55 @@ ProgressTimer * LoadingResScene::addProgress()
 
 void LoadingResScene::loadResources()
 {
-	SimpleAudioEngine::getInstance()->preloadBackgroundMusic(FileUtils::getInstance()->fullPathForFilename("sound/music.mp3").c_str() );
-	numberOfLoadedRes++;
-	SimpleAudioEngine::getInstance()->preloadEffect(FileUtils::getInstance()->fullPathForFilename("sound/dead.wav" ).c_str());
-	numberOfLoadedRes++;
-	SimpleAudioEngine::getInstance()->preloadEffect(FileUtils::getInstance()->fullPathForFilename("sound/button.wav").c_str() );
-	numberOfLoadedRes++;
-	SimpleAudioEngine::getInstance()->preloadEffect(FileUtils::getInstance()->fullPathForFilename("sound/comeout.wav").c_str() );
-	numberOfLoadedRes++;
-	SimpleAudioEngine::getInstance()->preloadEffect(FileUtils::getInstance()->fullPathForFilename("sound/shoot.wav").c_str() );
-	numberOfLoadedRes++;
-	SimpleAudioEngine::getInstance()->preloadEffect(FileUtils::getInstance()->fullPathForFilename("sound/tip.wav").c_str() );
-	numberOfLoadedRes++;
-	SimpleAudioEngine::getInstance()->preloadEffect(FileUtils::getInstance()->fullPathForFilename("sound/dead.mp3").c_str() );
-	numberOfLoadedRes++;
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Play.plist");
-	numberOfLoadedRes++;
-
-	Director::getInstance()->getTextureCache()->addImageAsync("playbg.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
+    SimpleAudioEngine::getInstance()->preloadBackgroundMusic(FileUtils::getInstance()->fullPathForFilename("sound/music.mp3").c_str() );
+    numberOfLoadedRes++;
+    SimpleAudioEngine::getInstance()->preloadEffect(FileUtils::getInstance()->fullPathForFilename("sound/dead.wav" ).c_str());
+    numberOfLoadedRes++;
+    SimpleAudioEngine::getInstance()->preloadEffect(FileUtils::getInstance()->fullPathForFilename("sound/button.wav").c_str() );
+    numberOfLoadedRes++;
+    SimpleAudioEngine::getInstance()->preloadEffect(FileUtils::getInstance()->fullPathForFilename("sound/comeout.wav").c_str() );
+    numberOfLoadedRes++;
+    SimpleAudioEngine::getInstance()->preloadEffect(FileUtils::getInstance()->fullPathForFilename("sound/shoot.wav").c_str() );
+    numberOfLoadedRes++;
+    SimpleAudioEngine::getInstance()->preloadEffect(FileUtils::getInstance()->fullPathForFilename("sound/tip.wav").c_str() );
+    numberOfLoadedRes++;
+    SimpleAudioEngine::getInstance()->preloadEffect(FileUtils::getInstance()->fullPathForFilename("sound/dead.mp3").c_str() );
+    numberOfLoadedRes++;
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Play.plist");
+    numberOfLoadedRes++;
+    
+    Director::getInstance()->getTextureCache()->addImageAsync("playbg.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
     Director::getInstance()->getTextureCache()->addImageAsync("playbg1.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
     Director::getInstance()->getTextureCache()->addImageAsync("successfulBg.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
-	Director::getInstance()->getTextureCache()->addImageAsync("btn_back.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
-	Director::getInstance()->getTextureCache()->addImageAsync("btn_back_press.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
-	Director::getInstance()->getTextureCache()->addImageAsync("card_1.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
-	Director::getInstance()->getTextureCache()->addImageAsync("card_2.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
-	Director::getInstance()->getTextureCache()->addImageAsync("card_3.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
-	Director::getInstance()->getTextureCache()->addImageAsync("LevelInfoPanel.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
-	Director::getInstance()->getTextureCache()->addImageAsync("House.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
-	Director::getInstance()->getTextureCache()->addImageAsync("selectLevelBg.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
-	Director::getInstance()->getTextureCache()->addImageAsync("selectLevelBg1.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
-	Director::getInstance()->getTextureCache()->addImageAsync("selectLevelBg2.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
-	Director::getInstance()->getTextureCache()->addImageAsync("start_1.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
-	Director::getInstance()->getTextureCache()->addImageAsync("start_2.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
+    Director::getInstance()->getTextureCache()->addImageAsync("btn_back.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
+    Director::getInstance()->getTextureCache()->addImageAsync("btn_back_press.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
+    Director::getInstance()->getTextureCache()->addImageAsync("card_1.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
+    Director::getInstance()->getTextureCache()->addImageAsync("card_2.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
+    Director::getInstance()->getTextureCache()->addImageAsync("card_3.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
+    Director::getInstance()->getTextureCache()->addImageAsync("LevelInfoPanel.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
+    Director::getInstance()->getTextureCache()->addImageAsync("House.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
+    Director::getInstance()->getTextureCache()->addImageAsync("selectLevelBg.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
+    Director::getInstance()->getTextureCache()->addImageAsync("selectLevelBg1.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
+    Director::getInstance()->getTextureCache()->addImageAsync("selectLevelBg2.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
+    Director::getInstance()->getTextureCache()->addImageAsync("start_1.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
+    Director::getInstance()->getTextureCache()->addImageAsync("start_2.png", CC_CALLBACK_1(LoadingResScene::loadingCallBack, this));
 }
 
 void LoadingResScene::loadingCallBack(cocos2d::Texture2D *texture)
 {
-    ++numberOfLoadedRes;
-	float percent = (float)numberOfLoadedRes / (float)totalOfLoadedRes * 100;
+    numberOfLoadedRes++;
+}
 
-	progressBar->setPercentage(percent);
-   
+void LoadingResScene::logic(float dt)
+{
+    float percent = (float)numberOfLoadedRes / (float)totalOfLoadedRes * 100;
+    
+    progressBar->setPercentage(percent);
+    
     if (numberOfLoadedRes == totalOfLoadedRes)
     {
-		transitionScene();
-		SimpleAudioEngine::getInstance()->playBackgroundMusic(FileUtils::getInstance()->fullPathForFilename("sound/music.mp3").c_str(), true);
-		SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.1f);
-	}
+        transitionScene();
+        SimpleAudioEngine::getInstance()->playBackgroundMusic(FileUtils::getInstance()->fullPathForFilename("sound/music.mp3").c_str(), true);
+        SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.1f);
+    }
 }

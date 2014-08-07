@@ -41,7 +41,7 @@ bool LevelInfoScene::init()
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Play.plist");
 	fileName =  UserDefault::getInstance()->getStringForKey("nextLevelFile");
 	if( fileName ==""){
-		fileName = "levelInfo_1_0.plist";
+		fileName = "levelInfo_0.plist";
 	}
 
 	Size size = Director::getInstance()->getWinSize();

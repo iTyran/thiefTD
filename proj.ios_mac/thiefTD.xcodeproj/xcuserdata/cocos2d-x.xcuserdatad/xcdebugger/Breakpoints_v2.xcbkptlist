@@ -45,5 +45,65 @@
             endingLineNumber = "177">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Classes/LevelSelectPage.h"
+            timestampString = "428835083.862691"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "14"
+            endingLineNumber = "14"
+            landmarkName = "class LevelSelectPage"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LevelSelectPage2::~LevelSelectPage2()"
+                  moduleName = "thiefTD iOS"
+                  urlString = "file:///Users/cocos2d-x/Desktop/cocos2dx/git/thiefTD/Classes/LevelSelectPage.h"
+                  timestampString = "428834952.831894"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "15">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LevelSelectPage2::~LevelSelectPage2()"
+                  moduleName = "thiefTD iOS"
+                  urlString = "file:///Users/cocos2d-x/Desktop/cocos2dx/git/thiefTD/Classes/LevelSelectPage.h"
+                  timestampString = "428834952.83226"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "15">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LevelSelectPage2::~LevelSelectPage2()"
+                  moduleName = "thiefTD iOS"
+                  urlString = "file:///Users/cocos2d-x/Desktop/cocos2dx/git/thiefTD/Classes/LevelSelectPage.h"
+                  timestampString = "428834952.832553"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "15">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

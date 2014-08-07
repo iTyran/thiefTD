@@ -345,7 +345,7 @@ void PlayLayer::checkAndAddTowerPanle(Point position)
 
 void PlayLayer::addTower()
 {
-    if(chooseTowerpanel != NULL  )
+    if(chooseTowerpanel)
 	{
 		auto type = chooseTowerpanel->getChooseTowerType();
         if(type == TowerType::ANOTHER)

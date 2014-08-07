@@ -41,20 +41,19 @@ bool LevelScene::init()
 
     for (int i=0; i<LAYER_NUMBER; ++i) {
         if (0==i) {
-            auto page = LevelSelectPage1::create();
+            auto page = LevelSelectPage::create("selectLevelBg.png", i);
             page->setTag(i);
             scrollView->addNode(page);
         }else if(1==i){
-            auto page = LevelSelectPage2::create();
+            auto page = LevelSelectPage::create("selectLevelBg1.png", i);
             page->setTag(i);
             scrollView->addNode(page);
         }else if(2==i){
-            auto page = LevelSelectPage3::create();
+            auto page = LevelSelectPage::create("selectLevelBg2.png", i);
             page->setTag(i);
             scrollView->addNode(page);
         }
-    }
-          
+    }          
     
     Sprite* spritebg =Sprite::create("playbg.png");
     spritebg->setPosition(Point(size.width / 2,size.height / 2));

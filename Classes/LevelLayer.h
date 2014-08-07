@@ -14,7 +14,7 @@
 
 USING_NS_CC; 
 
-#define TOUCH_DELTA (20)
+#define SHORTEST_SLIDE_LENGTH (20)
 
 class LevelLayer: public Layer
 {
@@ -38,9 +38,9 @@ public:
     CREATE_FUNC(LevelLayer);
     
     void menuCloseCallback(Ref* pSender);
-    bool onTouchBegan(Touch *pTouch, Event  *pEvent);
-    void onTouchMoved(Touch *pTouch, Event  *pEvent);
-    void onTouchEnded(Touch *pTouch, Event  *pEvent);
+    bool onTouchBegan(Touch *touch, Event  *event);
+    void onTouchMoved(Touch *touch, Event  *event);
+    void onTouchEnded(Touch *touch, Event  *event);
     void addNode(Node *level);
 };
   

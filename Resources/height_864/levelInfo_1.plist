@@ -7,9 +7,9 @@
 		<key>money</key>
 		<integer>450</integer>
 		<key>currlevel</key>
-		<string>levelInfo_1_1.plist</string>
+		<string>levelInfo_1.plist</string>
 		<key>nextlevel</key>
-		<string>levelInfo_1_2.plist</string>
+		<string>levelInfo_2.plist</string>
 		<key>group</key>
 		<dict>
 			<key>1</key>
